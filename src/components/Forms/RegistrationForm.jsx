@@ -1,8 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { registerUser } from '../../services/api/api';
+import AlertSuccess from '../Alerts/success';
+import AlertError from '../Alerts/error';
 
 const RegistrationForm = () => {
   const validationSchema = yup.object().shape({
@@ -34,17 +36,25 @@ const RegistrationForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onSubmit = async (data) => {
     try {
       const response = await registerUser(data);
       console.log('Registration successful:', response);
+      setSuccessMessage('You are now registered!');
+      setErrorMessage('');
     } catch (error) {
-      console.error('Registration failed:', error.message);
+      setErrorMessage(error.message);
+      setSuccessMessage('');
     }
   };
 
   return (
     <div className='card shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
+      {successMessage && <AlertSuccess message={successMessage} />}
+      {errorMessage && <AlertError errorMessage={errorMessage} />}
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <div className='form-control'>
           <label className='label' htmlFor='name'>
