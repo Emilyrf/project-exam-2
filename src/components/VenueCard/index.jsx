@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-
 export default function VenueCard({ venue }) {
   const defaultImage = '/assets/temporaria.jpeg';
 
