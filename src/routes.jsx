@@ -24,7 +24,7 @@ function AppRoutes() {
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>
-  )
+  );
 }
 
 export default AppRoutes;
