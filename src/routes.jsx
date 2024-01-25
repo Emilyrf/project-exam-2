@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Homepage from './pages/Home';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
+import DashboardPage from './pages/Dashboard';
 import VenuePage from './pages/Venue';
 import NotFound from './pages/NotFound';
 
@@ -19,6 +20,7 @@ function AppRoutes() {
             <Route path='venue/:id' element={<VenuePage />} />
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
+            <Route path='dashboard' element={<DashboardPage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
