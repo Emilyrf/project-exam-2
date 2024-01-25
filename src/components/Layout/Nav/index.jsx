@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
+import LogoutButton from '../../Auth/LogoutButton';
 
 export default function Navbar() {
   const currentLocation = useLocation();
@@ -33,6 +34,7 @@ export default function Navbar() {
           >
             Register
           </NavLink>
+          <LogoutButton />
         </div>
       </nav>
     </header>
