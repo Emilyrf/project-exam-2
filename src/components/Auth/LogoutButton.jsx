@@ -12,8 +12,8 @@ function LogoutButton() {
   }
 
   return (
-    <button className='btn btn-active btn-accent' onClick={handleLogout}>
-      Log Out
+    <button className='btn btn-active btn-accent text-xl' onClick={handleLogout}>
+      Logout
     </button>
   );
 }
