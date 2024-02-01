@@ -1,4 +1,12 @@
+import VenueFilter from '../Venues/VenueFilter';
+import { useQuery } from '@tanstack/react-query';
+import { fetchVenues } from '../../services/api/api';
+
 export default function Banner() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: fetchVenues,
+  });
   return (
     <div
       className='hero min-h-screen'
@@ -12,16 +20,7 @@ export default function Banner() {
         <div className='max-w-md'>
           <h1 className='mb-5 text-5xl font-bold'>Holidaze</h1>
           <p className='mb-5'>Feel at home, anywhere</p>
-          <label className='form-control w-full max-w-xs'>
-            <div className='label'>
-              <span className='text'>Where do you wann go?</span>
-            </div>
-            <input
-              type='text'
-              placeholder='Type here'
-              className='input input-bordered w-full max-w-xs'
-            />
-          </label>
+          <VenueFilter venues={data} />
         </div>
       </div>
     </div>
