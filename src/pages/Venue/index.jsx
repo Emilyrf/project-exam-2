@@ -33,6 +33,12 @@ const VenuePage = () => {
     return <div>Error: {error.message}</div>;
   }
 
+    // Extracting booked dates from the venue object
+    const bookedDates = venue.bookings.map((booking) => ({
+      start: new Date(booking.dateFrom),
+      end: new Date(booking.dateTo),
+    }));
+
   return (
     <div>
       {venue ? (
@@ -62,7 +68,7 @@ const VenuePage = () => {
               />
             </div>
           </div>
-          <div class='flex'>
+          <div className='flex'>
             <div>
               <p className='mt-2 text-gray-600'>{venue.description}</p>
               <h3 className='text-lg font-semibold mt-4 text-secondary'>Max Guests </h3>
@@ -76,7 +82,7 @@ const VenuePage = () => {
                 ))}
               </ul>
             </div>
-            <BookingCalendar onSelectDate={handleDateSelection} onBookNowClick={handleBooking} />
+            <BookingCalendar onSelectDate={handleDateSelection} onBookNowClick={handleBooking} bookedDates={bookedDates} />
           </div>
         </div>
       ) : (
