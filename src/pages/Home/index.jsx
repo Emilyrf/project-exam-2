@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import Banner from '../../components/Banner';
-import VenueCard from '../../components/VenueCard';
+import VenuesList from '../../components/Venues/VenueList';
 import { fetchVenues } from '../../services/api/api';
+import VenueFilter from '../../components/Venues/VenueFilter';
 
 const API_BASE_URL = 'https://nf-api.onrender.com/api/v1/holidaze/venues/';
 
@@ -26,11 +27,7 @@ export default function Homepage() {
       <h1 className='text-3xl font-bold text-secondary m-5 text-center'>
         Check out this amazing destinations:
       </h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8'>
-        {data.map((venue) => (
-          <VenueCard key={venue.id} venue={venue} />
-        ))}
-      </div>
+      <VenuesList venues={data} />
     </div>
   );
 }
