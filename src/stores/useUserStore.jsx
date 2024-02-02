@@ -6,9 +6,11 @@ const useUserStore = create(
     (set) => ({
       user: null,
       isVenueManager: false,
+      userSubs: null, // Add userSubs here
       setUser: (user) => set({ user }),
       setIsVenueManager: (value) => set({ isVenueManager: value }),
       clearUser: () => set({ user: null }),
+      clearUserSubs: () => set({ userSubs: null }), // Add this function
       setUserSubs: (userSubs) => set({ userSubs }),
     }),
     {
@@ -23,14 +25,13 @@ export const useUser = () => useUserStore.getState().user;
 export const useIsVenueManager = () => useUserStore.getState().isVenueManager;
 
 export const useUserActions = () => {
-  const { setState } = useUserStore();
+  const { clearUser, setUserSubs, clearUserSubs } = useUserStore();
 
   // Use utility functions for setting state
-  const setUser = (user) => setState({ user });
-  const setIsVenueManager = (value) => setState({ isVenueManager: value });
-  const clearUser = () => setState({ user: null });
+  const setUser = (user) => useUserStore.setState({ user });
+  const setIsVenueManager = (value) => useUserStore.setState({ isVenueManager: value });
 
-  return { setUser, setIsVenueManager, clearUser };
+  return { setUser, setIsVenueManager, clearUser, clearUserSubs, setUserSubs };
 };
 
 export const useUserName = () => {
