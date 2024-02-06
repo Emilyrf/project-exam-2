@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { registerUser } from '../../services/api/api';
-import { useIsVenueManager } from '../../stores/useUserStore';
-import AlertSuccess from '../Alerts/success';
-import AlertError from '../Alerts/error';
+import { registerUser } from '../services/api/api';
+import { useIsVenueManager } from '../stores/useUserStore';
+import AlertSuccess from '../components/Alerts/success';
+import AlertError from '../components/Alerts/error';
 
 const RegistrationForm = () => {
   const [isVenueManager, setIsVenueManager] = useState(false);
