@@ -46,7 +46,6 @@ const RegistrationForm = () => {
     try {
       data.isVenueManager = isVenueManager;
       const response = await registerUser({ ...data, venueManager: isVenueManager });
-      console.log('Registration successful:', response);
       setSuccessMessage('You are now registered!');
       setErrorMessage('');
     } catch (error) {
@@ -83,12 +82,12 @@ const RegistrationForm = () => {
           <input className='input input-bordered' {...register('password')} type='password' />
           {errors.password && <span className='text-red-600'>{errors.password.message}</span>}
         </div>
-        <div className="form-control w-52">
-          <label className="cursor-pointer label">
-            <span className="label-text">Are you a venue manager?</span>
+        <div className='form-control w-52'>
+          <label className='cursor-pointer label'>
+            <span className='label-text'>Are you a venue manager?</span>
             <input
-              type="checkbox"
-              className="toggle toggle-accent"
+              type='checkbox'
+              className='toggle toggle-accent'
               {...register('isVenueManager')}
               checked={isVenueManager}
               onChange={() => setIsVenueManager(!isVenueManager)}

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { loginUser } from '../../services/api/api';
-import AlertSuccess from '../Alerts/success';
-import AlertError from '../Alerts/error';
-import { useUserActions } from '../../stores/useUserStore';
+import { loginUser } from '../services/api/api';
+import AlertSuccess from '../components/Alerts/success';
+import AlertError from '../components/Alerts/error';
+import { useUserActions } from '../stores/useUserStore';
 import { useNavigate } from 'react-router-dom';
 
 const validationSchema = yup.object().shape({
@@ -40,7 +40,6 @@ const LoginForm = () => {
   });
 
   async function onSubmit(data) {
-    console.log(data);
 
     try {
       setSuccessMessage('');
