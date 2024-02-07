@@ -66,6 +66,7 @@ const LoginForm = () => {
     <div className='card shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
       {successMessage && <AlertSuccess message={successMessage} />}
       {errorMessage && <AlertError errorMessage={errorMessage} />}
+      <h1 className='text-3xl font-bold text-secondary m-5 text-center'>Login to your Holidaze account:</h1>
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isLoading}>
           <div className='form-control'>
@@ -82,9 +83,11 @@ const LoginForm = () => {
             <input className='input input-bordered' {...register('password')} type='password' />
             {errors.password && <span className='text-red-600'>{errors.password.message}</span>}
           </div>
-          <button className='btn btn-primary mt-8' type='submit'>
-            {isLoading ? 'Logging in...' : 'Login'}
-          </button>
+          <div className='form-control'>
+            <button className='btn btn-primary mt-8' type='submit'>
+              {isLoading ? 'Logging in...' : 'Login'}
+            </button>
+          </div>
         </fieldset>
       </form>
     </div>

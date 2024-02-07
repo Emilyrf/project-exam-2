@@ -1,9 +1,8 @@
-import RegistrationForm from '../../components/Auth/RegistrationForm';
+import RegistrationForm from '../../Auth/RegistrationForm';
 
 export default function RegisterPage() {
   return (
-    <div className='text-center'>
-      <h1 className='text-3xl font-bold text-secondary m-5'>Register to Holidaze</h1>
+    <div className='hero min-h-screen  bg-base-200'>
       <RegistrationForm />
     </div>
   );
