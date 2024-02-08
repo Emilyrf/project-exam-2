@@ -1,25 +1,30 @@
 # Project Exam 2
 
 # Goal
+
 To take the skills learned over the last two years and take on an extensive project where the finished product should reflect the candidate’s general development capabilities, in addition to visual and technical skills.
 
 # Brief
+
 A newly launched accommodation booking site called Holidaze has approached you to develop a brand new front end for their application. While they have a list of required features, the design and user experience has not been specified. Working with the official API documentation, plan, design and build a modern front end accommodation booking application.
 
 There are two aspects to this brief: the customer-facing side of the website where users can book holidays at a venue, and an admin-facing side of the website where users can register and manage venues and bookings at those venues.
 
 # Requirements
+
 All API functionality is managed by an existing application. This project only covers the front-end application for the API.
 API
 The API you are using for this project can be found under Holidaze in the Noroff API documentation.
 
 # Resources
+
 API Guide
 https://docs.noroff.dev
 API Documentation
 https://api.noroff.dev/docs/static/index.html
 
 # User Stories
+
 The client has specified the following requirements in the form of User Stories:
 
 - A user may view a list of Venues
@@ -39,6 +44,7 @@ The client has specified the following requirements in the form of User Stories:
 - A registered user may logout
 
 # Technical Restrictions
+
 The company CTO has set the following technical restrictions:
 
 Must use an approved JavaScript Framework

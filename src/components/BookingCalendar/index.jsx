@@ -17,12 +17,10 @@ const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
 
   const isBookedDay = (date) => {
     const result = bookedDates.some((booking) =>
-      isWithinInterval(date, { start: new Date(booking.start), end: new Date(booking.end) })
+      isWithinInterval(date, { start: new Date(booking.start), end: new Date(booking.end) }),
     );
     return result;
   };
-  
-  
 
   const dayClassName = (date) => {
     return isBookedDay(date) ? 'bg-gray-200' : ''; // Tailwind classes for styling booked dates

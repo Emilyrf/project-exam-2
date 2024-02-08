@@ -33,11 +33,11 @@ const VenuePage = () => {
     return <div>Error: {error.message}</div>;
   }
 
-    // Extracting booked dates from the venue object
-    const bookedDates = venue.bookings.map((booking) => ({
-      start: new Date(booking.dateFrom),
-      end: new Date(booking.dateTo),
-    }));
+  // Extracting booked dates from the venue object
+  const bookedDates = venue.bookings.map((booking) => ({
+    start: new Date(booking.dateFrom),
+    end: new Date(booking.dateTo),
+  }));
 
   return (
     <div>
@@ -82,7 +82,11 @@ const VenuePage = () => {
                 ))}
               </ul>
             </div>
-            <BookingCalendar onSelectDate={handleDateSelection} onBookNowClick={handleBooking} bookedDates={bookedDates} />
+            <BookingCalendar
+              onSelectDate={handleDateSelection}
+              onBookNowClick={handleBooking}
+              bookedDates={bookedDates}
+            />
           </div>
         </div>
       ) : (

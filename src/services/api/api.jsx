@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useToken, useUserName } from '../../stores/useUserStore';
 import useUserStore from '../../stores/useUserStore';
+import { useUserVenues } from '../../stores/useUserStore';
 
 const API_BASE_URL = 'https://nf-api.onrender.com/api/v1/holidaze/venues/';
+// const { setVenues } = useUserVenues();
 
 export const fetchVenues = async () => {
   try {
@@ -45,6 +47,16 @@ export const loginUser = async (profile) => {
       `https://nf-api.onrender.com/api/v1/holidaze/auth/login`,
       profile,
     );
+
+    var resposta = ''
+
+    if (response.data.venueManager) {
+      resposta = await UsersVenues(response.data.name, response.data.accessToken);
+      // useUserVenues.setVenues(resposta)
+    } else {
+      resposta = await UsersBookings(response.data.name, response.data.accessToken);
+    }
+    console.log(resposta);
     return response;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.errors) {
@@ -56,12 +68,27 @@ export const loginUser = async (profile) => {
   }
 };
 
-
-export const fetchUserProfile = async (name) => {
-  const token = useToken();
+export const UsersVenues = async (name, token) => {
+  // const token = token;
 
   try {
-    const response = await axios.get(`https://nf-api.onrender.com/api/v1/holidaze/profiles/${name}?_bookings=true&_venues=true`, {
+    const response = await axios.get(`https://nf-api.onrender.com/api/v1/holidaze/profiles/${name}/venues`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`API request failed: ${error.message}`);
+  }
+};
+
+export const UsersBookings = async (name, token) => {
+  // const token = useToken();
+
+
+  try {
+    const response = await axios.get(`https://nf-api.onrender.com/api/v1/holidaze/profiles/${name}/bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

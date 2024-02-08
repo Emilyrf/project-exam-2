@@ -7,6 +7,7 @@ import RegisterPage from './pages/Register';
 import DashboardPage from './pages/Dashboard';
 import VenuePage from './pages/Venue';
 import NotFound from './pages/NotFound';
+import CreateVenuePage from './pages/CreateVenue';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function AppRoutes() {
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
             <Route path='dashboard' element={<DashboardPage />} />
+            <Route path='create' element={<CreateVenuePage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

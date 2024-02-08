@@ -16,10 +16,7 @@ const ContinentSelect = ({ name, label, register }) => {
       <label className='label' htmlFor={name}>
         {label}:
       </label>
-      <Select
-        options={continents}
-        {...register(name)}
-      />
+      <Select options={continents} {...register(name)} />
     </div>
   );
 };

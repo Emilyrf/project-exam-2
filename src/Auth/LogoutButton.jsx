@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useUserActions } from '../../stores/useUserStore';
+import { useUserActions } from '../stores/useUserStore';
 
 function LogoutButton() {
   const { clearUser, clearUserSubs } = useUserActions();
@@ -11,7 +11,6 @@ function LogoutButton() {
     clearUserSubs();
     navigate('/');
   }
-  
 
   return (
     <button className='btn btn-active btn-accent text-xl' onClick={handleLogout}>

@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import LogoutButton from '../../Auth/LogoutButton';
+import LogoutButton from '../../../Auth/LogoutButton';
 import { useToken } from '../../../stores/useUserStore';
 
 export default function Navbar() {
@@ -12,8 +12,9 @@ export default function Navbar() {
         <div className='flex-1'>
           <NavLink
             to='/'
-            className={`btn btn-ghost text-xl ${currentLocation.pathname === '/' ? 'font-bold underline' : ''
-              }`}
+            className={`btn btn-ghost text-xl ${
+              currentLocation.pathname === '/' ? 'font-bold underline' : ''
+            }`}
           >
             Holidaze
           </NavLink>
@@ -23,34 +24,34 @@ export default function Navbar() {
             <>
               <NavLink
                 to='/login'
-                className={`btn btn-secondary text-xl ${currentLocation.pathname === '/login' ? 'font-bold underline' : ''
-                  }`}
+                className={`btn btn-secondary text-xl ${
+                  currentLocation.pathname === '/login' ? 'font-bold underline' : ''
+                }`}
               >
                 Login
               </NavLink>
               <NavLink
                 to='/register'
-                className={`btn btn-ghost text-xl ${currentLocation.pathname === '/register' ? 'font-bold underline' : ''
-                  }`}
+                className={`btn btn-ghost text-xl ${
+                  currentLocation.pathname === '/register' ? 'font-bold underline' : ''
+                }`}
               >
                 Register
               </NavLink>
             </>
           ) : (
             <>
-          <NavLink
-          to='/dashboard'
-          className={`btn btn-ghost text-xl ${
-            currentLocation.pathname === '/dashboard' ? 'font-bold underline' : ''
-          }`}
-        >
-          Dashboard
-        </NavLink>
-        <LogoutButton />
-        </>
+              <NavLink
+                to='/dashboard'
+                className={`btn btn-ghost text-xl ${
+                  currentLocation.pathname === '/dashboard' ? 'font-bold underline' : ''
+                }`}
+              >
+                Dashboard
+              </NavLink>
+              <LogoutButton />
+            </>
           )}
-        
-
         </div>
       </nav>
     </header>
