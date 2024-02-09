@@ -1,10 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import LogoutButton from '../../../Auth/LogoutButton';
-import { useToken } from '../../../stores/useUserStore';
+import { useStore } from '../../../stores/useStore';
 
 export default function Navbar() {
   const currentLocation = useLocation();
-  const token = useToken();
+  const token = useStore((state) => state.token);
 
   return (
     <header>

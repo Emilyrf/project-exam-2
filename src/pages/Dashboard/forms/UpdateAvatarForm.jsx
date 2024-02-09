@@ -1,23 +1,21 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { updateProfileMedia } from '../../../services/api/api';
-import { useUserActions } from '../../../stores/useUserStore';
+import { useStore } from '../../../stores/useStore';
+import { updateProfileMedia } from '../../../services/api/http';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import AlertError from '../../../components/Alerts/success';
-import AlertSuccess from '../../../components/Alerts/success';
+import AlertError from '../../../components/Alerts/Error';
+import AlertSuccess from '../../../components/Alerts/Success';
+
+const validationSchema = yup.object().shape({
+  url: yup.string().url('Please enter a valid URL').required('URL is required'),
+});
 
 const UpdateProfileForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [newAvatarUrl, setNewAvatarUrl] = useState('');
-
-  const validationSchema = yup.object().shape({
-    url: yup.string().url('Please enter a valid URL').required('URL is required'),
-  });
-
-  
+  const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
 
   const {
     handleSubmit,
@@ -28,19 +26,13 @@ const UpdateProfileForm = () => {
   });
 
   const handleFormSubmit = async (data) => {
+    setIsLoading(true);
     try {
-      setSuccessMessage('');
+      await updateProfileMedia(token, user.name, data.url);
       setErrorMessage('');
-      setIsLoading(true);
-      const response = await updateProfileMedia(data.url);
 
-      if (response) {
-        setSuccessMessage('Profile media updated successfully!');
-      } else {
-        setErrorMessage('Unexpected response format or missing expected properties');
-      }
     } catch (error) {
-      setErrorMessage(`Error updating profile media`);
+      setErrorMessage(`Error updating profile media: ${error.response}`);
     } finally {
       setIsLoading(false);
     }
@@ -57,7 +49,6 @@ const UpdateProfileForm = () => {
     <dialog id='update_avatar_modal' className='modal'>
       <div className='modal-box'>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
-          {successMessage && <AlertSuccess message={successMessage} />}
           {errorMessage && <AlertError errorMessage={errorMessage} />}
           <button
             id='close_update_avatar'
@@ -77,8 +68,6 @@ const UpdateProfileForm = () => {
                 className='input input-bordered m-2'
                 placeholder='Url'
                 {...register('url')}
-                value={newAvatarUrl}
-                onChange={(e) => setNewAvatarUrl(e.target.value)}
               />
               {errors.url && <span className='text-red-600'>{errors.url.message}</span>}
             </div>

@@ -1,14 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useUserActions } from '../stores/useUserStore';
+import { useStore } from '../stores/useStore';
 
 function LogoutButton() {
-  const { clearUser, clearUserSubs } = useUserActions();
 
+  const setUser = useStore((state) => state.setUser);
+  const setToken = useStore((state) => state.setToken);
   const navigate = useNavigate();
 
   function handleLogout() {
-    clearUser();
-    clearUserSubs();
+    setToken(null);
+    setUser({
+      name: null,
+      email: null,
+      avatar: null,
+      venueManager: false,
+    });
     navigate('/');
   }
 

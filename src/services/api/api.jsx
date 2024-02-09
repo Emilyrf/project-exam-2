@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useToken, useUserName } from '../../stores/useUserStore';
 import useUserStore from '../../stores/useUserStore';
-import { useUserVenues } from '../../stores/useUserStore';
+
 
 const API_BASE_URL = 'https://nf-api.onrender.com/api/v1/holidaze/venues/';
 // const { setVenues } = useUserVenues();
