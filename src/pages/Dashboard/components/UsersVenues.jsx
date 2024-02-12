@@ -1,10 +1,19 @@
+import { useState } from 'react';
 import { useStore } from '../../../stores/useStore';
 import DeleteVenueForm from '../forms/DeleteVenueForm';
 import { Link } from 'react-router-dom';
 
 const UsersVenues = () => {
-  const venues = useStore((state) => state.venues);
+  const [venues, setVenues] = useState(useStore((state) => state.venues));
   const defaultImage = '/assets/temporaria.jpeg';
+  const handleDeleteSuccess = (deletedVenueId) => {
+    setVenues(venues.filter((venue) => venue.id !== deletedVenueId));
+  };
+
+  const handleDeleteError = (errorMessage) => {
+    console.error('Error deleting venue:', errorMessage);
+  };
+
 
   return (
     <div>
@@ -58,7 +67,10 @@ const UsersVenues = () => {
                   />
                 </svg>
               </button>
-              <DeleteVenueForm />
+              <DeleteVenueForm
+                id={venue.id}
+                onDeleteSuccess={() => handleDeleteSuccess(venue.id)}
+                onDeleteError={handleDeleteError} />
             </div>
           </div>
         </div>

@@ -29,6 +29,13 @@ export const fetchUserVenues = (token, user) => {
         },
     });
 };
+export const deleteVenue = (id, token) => {
+    return http.delete(`/venues/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
 
 export const fetchBookings = (token, user) => {
     return http.get(`/profiles/${user.name}/bookings?_venue=true`, {
