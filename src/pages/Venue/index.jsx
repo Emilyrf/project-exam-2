@@ -85,7 +85,8 @@ const VenuePage = () => {
             <BookingCalendar
               onSelectDate={handleDateSelection}
               onBookNowClick={handleBooking}
-              bookedDates={bookedDates}
+                //DIAS JA BOOKADOS ??????
+              bookedDates={bookedDates} 
             />
           </div>
         </div>

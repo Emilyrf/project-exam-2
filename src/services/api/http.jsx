@@ -45,3 +45,22 @@ export const deleteBooking = (id, token) => {
         },
     });
 }
+//fetch venues
+//register
+//make booking
+export const createBooking = async (bookingData, token) => {
+    try {
+        const response = await http.post("/bookings", bookingData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data; // return the data from the response
+    } catch (error) {
+        console.error("Error creating booking:", error);
+        throw error; // re-throw the error for handling in the calling code
+    }
+};
+
+
+//post venue
