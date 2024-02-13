@@ -23,12 +23,13 @@ export const updateProfileMedia = (token, userName, newAvatarUrl) => {
 
 
 export const fetchUserVenues = (token, user) => {
-    return http.get(`/profiles/${user.name}/venues`, {
+    return http.get(`/profiles/${user.name}/venues?_bookings=true`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
 };
+
 export const deleteVenue = (id, token) => {
     return http.delete(`/venues/${id}`, {
         headers: {
@@ -36,6 +37,29 @@ export const deleteVenue = (id, token) => {
         },
     });
 }
+
+export const createVenue = (token, venueData) => {
+    return http.post(`/venues`, venueData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  };
+  
+// export const createVenue = async (venueData, token) => {
+//     try {
+//         const response = await http.post('/venues', venueData, {
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 'Content-Type': 'application/json',
+//             },
+//         });
+//         return response.data;
+//     } catch (error) {
+//         throw new Error(error.response.data.message || 'Failed to create venue');
+//     }
+// };
 
 export const fetchBookings = (token, user) => {
     return http.get(`/profiles/${user.name}/bookings?_venue=true`, {
@@ -54,7 +78,7 @@ export const deleteBooking = (id, token) => {
 }
 //fetch venues
 //register
-//make booking
+
 export const createBooking = async (bookingData, token) => {
     try {
         const response = await http.post("/bookings", bookingData, {

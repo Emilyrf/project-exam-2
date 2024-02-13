@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useStore } from '../../stores/useStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import { fetchUserVenues, fetchBookings } from '../../services/api/http';
 import UpdateProfileForm from './forms/UpdateAvatarForm';
 import UpcomingBookings from './components/UpcomingBookings';
@@ -69,6 +69,11 @@ export default function DashboardPage() {
       {user && user.venueManager ? (
         <section className='mx-5'>
           <h2 className='text-3xl font-bold text-secondary m-5 text-center'>Your venues:</h2>
+          <div className="text-center">
+           <Link to={`/create`}>
+             <button className="btn btn-accent">Create Venue</button>
+           </Link>
+         </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8 '>
             <UsersVenues />
           </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../../../stores/useStore';
 import DeleteVenueForm from '../forms/DeleteVenueForm';
+import ViewBookingsForm from '../forms/ViewBookingsForm';
 import { Link } from 'react-router-dom';
 
 const UsersVenues = () => {
@@ -9,7 +10,7 @@ const UsersVenues = () => {
   const handleDeleteSuccess = (deletedVenueId) => {
     setVenues(venues.filter((venue) => venue.id !== deletedVenueId));
   };
-
+  console.log('Venues:', venues);
   const handleDeleteError = (errorMessage) => {
     console.error('Error deleting venue:', errorMessage);
   };
@@ -30,7 +31,8 @@ const UsersVenues = () => {
           </Link>
           <div className='card-body items-center text-center'>
             <h2 className='card-title'>{venue.name}</h2>
-            <p>View bookings.</p>
+            <button className="btn" onClick={()=>document.getElementById('view_bookings').showModal()}>View bookings</button>
+            <ViewBookingsForm venue={venue} />
             <div className='card-actions justify-end'>
               <button className='btn'>
                 <svg
