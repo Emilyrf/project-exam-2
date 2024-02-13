@@ -1,38 +1,53 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useStore } from '../../stores/useStore';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-// import { createVenue } from '../../services/api/api';
+import { createVenue } from '../../services/api/http';
 import CountrySelect from '../LocationSelect/CountrySelect';
 import ContinentSelect from '../LocationSelect/ContinentSelect';
 import AlertSuccess from '../Alerts/success';
 import AlertError from '../Alerts/error';
 
+const validationSchema = yup.object().shape({
+  name: yup.string().required('Name is required'),
+  description: yup.string().required('Description is required'),
+  media: yup
+    .mixed()
+    .test('media-format', 'Invalid media format', value => {
+      if (value) {
+        if (Array.isArray(value)) {
+          return value.every(item => typeof item === 'string');
+        } else if (typeof value === 'string') {
+          const urls = value.split(',');
+          return urls.every(url => url.trim().match(/^(https?:\/\/)?[\w\d.-]+\.[\w\d.-]+(\/[\w\d.-]+)*\/?(\?[^\s]*)?(#\S*)?$/));
+        }
+        return false;
+      }
+      return true;
+    }),
+  price: yup.number().required('Price is required'),
+  maxGuests: yup.number().required('Maximum Guests is required'),
+  meta: yup.object().shape({
+    wifi: yup.boolean().default(false),
+    parking: yup.boolean().default(false),
+    breakfast: yup.boolean().default(false),
+    pets: yup.boolean().default(false),
+  }),
+  location: yup.object().shape({
+    address: yup.string().default('Unknown'),
+    city: yup.string().default('Unknown'),
+    zip: yup.string().default('Unknown'),
+    country: yup.string().default('Unknown'),
+    continent: yup.string().default('Unknown'),
+  }),
+});
+
+
 const CreateVenueForm = () => {
+  const token = useStore((state) => state.token);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Name is required'),
-    description: yup.string().required('Description is required'),
-    media: yup.array().of(yup.string()), // Array of string URLs
-    price: yup.number().required('Price is required'),
-    maxGuests: yup.number().required('Maximum Guests is required'),
-    rating: yup.number(),
-    meta: yup.object().shape({
-      wifi: yup.boolean().default(false),
-      parking: yup.boolean().default(false),
-      breakfast: yup.boolean().default(false),
-      pets: yup.boolean().default(false),
-    }),
-    location: yup.object().shape({
-      address: yup.string().default('Unknown'),
-      city: yup.string().default('Unknown'),
-      zip: yup.string().default('Unknown'),
-      country: yup.string().default('Unknown'),
-      continent: yup.string().default('Unknown'),
-    }),
-  });
 
   const {
     handleSubmit,
@@ -44,10 +59,19 @@ const CreateVenueForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await createVenue(data);
-      console.log('Venue creation successful:', response);
-      setSuccessMessage('Venue created successfully!');
-      setErrorMessage('');
+      const formData = {
+        ...data,
+        media: Array.isArray(data.media) ? data.media : [data.media]
+      };
+
+      const response = await createVenue(token, formData);
+      if (response && response.data) {
+        console.log('Venue creation successful:', response.data);
+        setSuccessMessage('Venue created successfully!');
+        setErrorMessage('');
+      } else {
+        throw new Error('Failed to create venue');
+      }
     } catch (error) {
       setErrorMessage(error.message);
       setSuccessMessage('');
@@ -100,14 +124,6 @@ const CreateVenueForm = () => {
         </div>
 
         <div className='form-control'>
-          <label className='label' htmlFor='rating'>
-            Rating:
-          </label>
-          <input className='input input-bordered' {...register('rating')} type='number' />
-          {errors.rating && <span className='text-red-600'>{errors.rating.message}</span>}
-        </div>
-
-        <div className='form-control'>
           <label className='label'>Facilities:</label>
           <div>
             <label htmlFor='wifi'>Wifi:</label>
@@ -143,7 +159,6 @@ const CreateVenueForm = () => {
             )}
           </div>
           <div className='form-control'>
-            <label className='label'>Location:</label>
             <CountrySelect label='Country' name='location.country' register={register} />
             <ContinentSelect label='Continent' name='location.continent' register={register} />
           </div>
