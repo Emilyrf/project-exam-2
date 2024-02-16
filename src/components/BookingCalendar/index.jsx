@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../../stores/useStore';
 import DayPicker from './DatePicker';
 import GuestInput from './GuestsInput';
-import { isWithinInterval } from 'date-fns';
-import 'react-datepicker/dist/react-datepicker.css';
 import { createBooking } from '../../services/api/http';
 import AlertError from '../Alerts/error';
 import AlertSuccess from '../Alerts/success';
 
-const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
-  const [startDate, setStartDate] = useState(new Date());
+const BookingCalendar = ({ bookedDates }) => {
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const token = useStore((state) => state.token);
   const [numGuests, setNumGuests] = useState(1);
@@ -18,28 +16,29 @@ const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
-
-  const isBookedDay = (date) => {
-    return bookedDates.some((booking) =>
-      isWithinInterval(date, { start: new Date(booking.dateFrom), end: new Date(booking.dateTo) })
-    );
-  };
-
-  //DIAS JA BOOKADOS ??????
-  const dayClassName = (date) => {
-    return isBookedDay(date) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : '';
-  };
-
+  const handleDateSelection = (selectedRange) => {
+    if (selectedRange) {
+      setStartDate(selectedRange.from);
+      setEndDate(selectedRange.to);
+    } else {
+      setStartDate(null);
+      setEndDate(null);
+    }
+  }
 
   const handleBooking = async () => {
+    console.log('Booking button clicked');
+    console.log('Start date:', startDate);
+    console.log('End date:', endDate);
+
     try {
       if (!venueId) {
         console.error('Venue ID is not available in the URL');
+        return;
+      }
+
+      if (!startDate || !endDate) {
+        setErrorMessage('Please select a date range.');
         return;
       }
 
@@ -52,10 +51,6 @@ const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
 
       console.log('Booking successful!');
       setSuccessMessage('Booking successful!');
-
-      if (typeof onBookNowClick === 'function') {
-        onBookNowClick(startDate);
-      }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const errorMessage = error.response.data.errors[0].message;
@@ -73,8 +68,8 @@ const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
       {errorMessage && <AlertError errorMessage={errorMessage} />}
       {successMessage && <AlertSuccess successMessage={successMessage} />}
 
-      <DayPicker
-      />
+      <DayPicker onSelect={handleDateSelection} bookedDates={bookedDates} />
+
       <div className='mt-3'>
         <GuestInput
           numGuests={numGuests}
