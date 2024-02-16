@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useStore } from '../../stores/useStore';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { createVenue } from '../../services/api/http';
+import { createVenue, fetchSingleVenue, updateVenue } from '../../services/api/http';
 import CountrySelect from '../LocationSelect/CountrySelect';
 import ContinentSelect from '../LocationSelect/ContinentSelect';
 import AlertSuccess from '../Alerts/success';
@@ -33,34 +34,69 @@ const validationSchema = yup.object().shape({
   }),
 });
 
-const VenueForm = () => {
+export default function VenueForm({ venueId }) {
   const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const { handleSubmit, register, control, formState: { errors } } = useForm({
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset, formState: { errors }, control } = useForm({
     resolver: yupResolver(validationSchema),
-  });
+  });  
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'media',
   });
 
+  useEffect(() => {
+    if (venueId) {
+      async function fetchVenue() {
+        try {
+          const venueData = await fetchSingleVenue(venueId);
+          reset(venueData);
+          if (venueData.owner.name !== user.name) {
+            console.log('Redirecting because user is not the owner.');
+            navigate('/not-found');
+          }
+  
+        } catch (error) {
+          console.error('Error fetching venue:', error);
+        }
+      }
+      fetchVenue();
+    }
+  }, [venueId, reset, user.name, navigate]);
+
+   
   const onSubmit = async (data) => {
     try {
-      const response = await createVenue(token, data);
-      if (response && response.data) {
-        console.log('Venue creation successful:', response.data);
-        setSuccessMessage('Venue created successfully!');
-        setErrorMessage('');
+      if (!user.venueManager) {
+        navigate('/not-found');
+        return;
+      }
+      if (venueId) {
+        const response = await updateVenue(venueId, token, data);
+        if (response && response.data) {
+          setSuccessMessage('Venue updated successfully!');
+          setErrorMessage('');
+        } else {
+          throw new Error('Failed to update venue');
+        }
       } else {
-        throw new Error('Failed to create venue');
+        const response = await createVenue(token, data);
+        if (response && response.data) {
+          setSuccessMessage('Venue created successfully!');
+          setErrorMessage('');
+        } else {
+          throw new Error('Failed to create venue');
+        }
       }
     } catch (error) {
       setErrorMessage(error.message);
       setSuccessMessage('');
     }
   };
-
+  
   return (
     <div className='card  shadow-2xl bg-base-100'>
       {successMessage && <AlertSuccess message={successMessage} />}
@@ -153,13 +189,12 @@ const VenueForm = () => {
             <ContinentSelect label='Continent' name='location.continent' register={register} />
           </div>
         </div>
-
         <button className='btn btn-primary mt-8' type='submit'>
-          Create Venue
+          {venueId ? 'Update Venue' : 'Create Venue'}
         </button>
       </form>
     </div>
   );
 };
 
-export default VenueForm;
+

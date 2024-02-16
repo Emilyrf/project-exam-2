@@ -15,14 +15,14 @@ export const fetchVenues = async () => {
   }
 };
 
-export const fetchSingleVenue = async (venueId) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}${venueId}?_owner=true&_bookings=true`);
-    return response.data;
-  } catch (error) {
-    throw new Error(`API request failed: ${error.message}`);
-  }
-};
+// export const fetchSingleVenue = async (venueId) => {
+//   try {
+//     const response = await axios.get(`${API_BASE_URL}${venueId}?_owner=true&_bookings=true`);
+//     return response.data;
+//   } catch (error) {
+//     throw new Error(`API request failed: ${error.message}`);
+//   }
+// };
 
 export const registerUser = async (profile) => {
   try {
