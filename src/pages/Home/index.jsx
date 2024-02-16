@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import Banner from '../../components/Banner';
 import VenuesList from '../../components/Venues/VenueList';
-import { fetchVenues } from '../../services/api/api';
+import { fetchVenues } from '../../services/api/http';
 
-const API_BASE_URL = 'https://nf-api.onrender.com/api/v1/holidaze/venues/';
 
 export default function Homepage() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ['fetchVenues'],
     queryFn: fetchVenues,
   });
 
