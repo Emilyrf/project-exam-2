@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../../stores/useStore';
-import DatePicker from './DatePicker';
+import DayPicker from './DatePicker';
 import GuestInput from './GuestsInput';
 import { isWithinInterval } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -73,16 +73,7 @@ const BookingCalendar = ({ onSelectDate, onBookNowClick, bookedDates }) => {
       {errorMessage && <AlertError errorMessage={errorMessage} />}
       {successMessage && <AlertSuccess successMessage={successMessage} />}
 
-      <DatePicker
-        selected={startDate}
-        onChange={onChange}
-        minDate={new Date()}
-        startDate={startDate}
-        endDate={endDate}
-        selectsRange
-        inline
-        showDisabledMonthNavigation
-        dayClassName={dayClassName}
+      <DayPicker
       />
       <div className='mt-3'>
         <GuestInput

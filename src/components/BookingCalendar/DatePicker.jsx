@@ -1,32 +1,20 @@
-import React from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
-const CustomDatePicker = ({ selected, onChange, minDate, startDate, endDate, bookedDates }) => {
+const CustomDatePicker = () => {
+  const disabledDays = [
+    new Date(2024, 5, 10),
+    new Date(2024, 5, 12),
+    new Date(2024, 5, 20),
+    { from: new Date(2024, 4, 18), to: new Date(2024, 4, 29) }
+  ];
 
-  //DIAS JA BOOKADOS ??????
-  const dayClassName = (date) => {
-    if (bookedDates && bookedDates.length > 0) {
-      const isBookedDay = bookedDates.some(booking =>
-        new Date(booking.dateFrom) <= date && date <= new Date(booking.dateTo)
-      );
-      return isBookedDay ? 'booked-day' : '';
-    } else {
-      return '';
-    }
-  };
-  
   return (
-    <DatePicker
-      selected={selected}
-      onChange={onChange}
-      minDate={minDate}
-      startDate={startDate}
-      endDate={endDate}
-      selectsRange
-      inline
-      showDisabledMonthNavigation
-      dayClassName={dayClassName} 
+    <DayPicker
+      mode='range'
+      selected={new Date()} // Defina a data selecionada, se necessário
+      disabled={disabledDays}
     />
   );
 };

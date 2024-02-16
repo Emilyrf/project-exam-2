@@ -14,8 +14,10 @@ const validationSchema = yup.object().shape({
 const UpdateProfileForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const token = useStore((state) => state.token);
   const user = useStore((state) => state.user);
+  const setUser = useStore((state) => state.setUser);
 
   const {
     handleSubmit,
@@ -28,11 +30,20 @@ const UpdateProfileForm = () => {
   const handleFormSubmit = async (data) => {
     setIsLoading(true);
     try {
-      await updateProfileMedia(token, user.name, data.url);
+      const response = await updateProfileMedia(token, user.name, data.url);
+      if (response.status === 200) {
+      setUser({
+        name: user.name,
+        email: user.email,
+        avatar: data.url,
+        venueManager: user.venueManager,
+    })
       setErrorMessage('');
+      setSuccessMessage('Avatar atualizado!');
+    }
 
     } catch (error) {
-      setErrorMessage(`Error updating profile media: ${error.response}`);
+      setErrorMessage(`Error updating profile media: ${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -41,6 +52,7 @@ const UpdateProfileForm = () => {
   const handleClose = () => {
     const modal = document.getElementById('update_avatar_modal');
     if (modal) {
+      setSuccessMessage('');
       modal.close();
     }
   };
@@ -50,6 +62,7 @@ const UpdateProfileForm = () => {
       <div className='modal-box'>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           {errorMessage && <AlertError errorMessage={errorMessage} />}
+          {successMessage && <AlertSuccess message={successMessage} />}
           <button
             id='close_update_avatar'
             type='button'

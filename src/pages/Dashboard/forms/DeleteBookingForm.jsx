@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { deleteBooking } from '../../../services/api/http';
-import { useStore } from '../../../stores/useStore'; 
+import { useStore } from '../../../stores/useStore';
 import AlertSuccess from '../../../components/Alerts/success';
 import AlertError from '../../../components/Alerts/error';
 
@@ -10,12 +10,16 @@ const DeleteBookingForm = ({ id, onDeleteSuccess, onDeleteError }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState('');
+  const bookings = useStore((state) => state.bookings);
+  const setBookings = useStore((state) => state.setBookings);
 
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
       const response = await deleteBooking(id, token);
       if (response.status === 204) {
+        let newBookings = bookings.filter(booking => booking.id !== id)
+        setBookings(newBookings);
         setDeleteSuccess(true);
         onDeleteSuccess();
       } else {

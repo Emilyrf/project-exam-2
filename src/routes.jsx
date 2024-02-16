@@ -8,6 +8,8 @@ import DashboardPage from './pages/Dashboard';
 import VenuePage from './pages/Venue';
 import NotFound from './pages/NotFound';
 import CreateVenuePage from './pages/CreateVenue';
+import EditVenuePage from './pages/EditVenue'
+
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,7 @@ function AppRoutes() {
             <Route path='register' element={<RegisterPage />} />
             <Route path='dashboard' element={<DashboardPage />} />
             <Route path='create' element={<CreateVenuePage />} />
+            <Route path='edit/:id' element={<EditVenuePage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

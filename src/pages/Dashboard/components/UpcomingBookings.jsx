@@ -3,7 +3,6 @@ import { useStore } from '../../../stores/useStore';
 import DeleteBookingForm from '../forms/DeleteBookingForm';
 import { Link } from 'react-router-dom';
 
-
 function formatDate(date) {
   return new Date(date).toLocaleDateString('en', {
     year: 'numeric',
@@ -24,11 +23,14 @@ const UpcomingBookings = () => {
     console.error('Error deleting booking:', errorMessage);
   };
 
+  if (bookings.length === 0) {
+    return <p>You have no upcoming bookings.</p>;
+  }
+
   return (
     <div>
       {bookings.map((booking) => (
         <div key={booking.id} className='card card-side mx-5 flex items-center'>
-          <Link to={`/venue/${booking.id}`}>
             <figure className='h-32 w-32 rounded'>
               <img
                 src={booking.venue.media.length > 0 ? booking.venue.media[0] : defaultImage}
@@ -36,7 +38,6 @@ const UpcomingBookings = () => {
                 className='rounded-xl'
               />
             </figure>
-          </Link>
           <div className='card-body flex-grow ml-4'>
             <h2 className='card-title'>
               {booking.venue.name}
