@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSingleVenue } from '../../services/api/http';
 import BookingCalendar from '../../components/BookingCalendar';
@@ -22,6 +23,11 @@ const VenuePage = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  const bookedDates = venue.bookings.map((booking) => ({
+    start: new Date(booking.dateFrom),
+    end: new Date(booking.dateTo),
+  }));
 
   return (
     <div className='max-w-screen-xl mx-auto p-4 mt-8 md:mt-12 lg:mt-16'>
@@ -64,8 +70,7 @@ const VenuePage = () => {
             ))}
           </ul>
         </div>
-        {/* Render the BookingCalendar component without passing any booking-related props */}
-        <BookingCalendar />
+        <BookingCalendar bookedDates={bookedDates} />
       </div>
     </div>
   );
