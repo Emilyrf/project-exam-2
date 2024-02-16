@@ -10,11 +10,13 @@ const UsersVenues = () => {
   const handleDeleteSuccess = (deletedVenueId) => {
     setVenues(venues.filter((venue) => venue.id !== deletedVenueId));
   };
-  console.log('Venues:', venues);
   const handleDeleteError = (errorMessage) => {
     console.error('Error deleting venue:', errorMessage);
   };
 
+  if (venues.length === 0) {
+    return <p>You haven't posted any venues yet.</p>;
+  }
 
   return (
     <div>
@@ -31,25 +33,27 @@ const UsersVenues = () => {
           </Link>
           <div className='card-body items-center text-center'>
             <h2 className='card-title'>{venue.name}</h2>
-            <button className="btn" onClick={()=>document.getElementById('view_bookings').showModal()}>View bookings</button>
+            <button className="btn" onClick={() => document.getElementById('view_bookings').showModal()}>View bookings</button>
             <ViewBookingsForm venue={venue} />
             <div className='card-actions justify-end'>
-              <button className='btn'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='h-6 w-6'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'
-                  />
-                </svg>
-              </button>
+              <Link to={`/edit/${venue.id}`}>
+                <button className='btn'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-6 w-6'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'
+                    />
+                  </svg>
+                </button>
+              </Link>
               <button
                 className='btn'
                 onClick={() => document.getElementById('delete_venue').showModal()}
