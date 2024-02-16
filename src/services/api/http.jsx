@@ -4,10 +4,6 @@ const http = axios.create({
     baseURL: 'https://nf-api.onrender.com/api/v1/holidaze',
 })
 
-// const http2 = axios.create({
-//     baseURL: 'https://v2.api.noroff.dev/holidaze',
-// })
-
 export const login = (email, password) => {
     return http.post("/auth/login", {
         email: email,
@@ -28,11 +24,10 @@ export const updateProfileMedia = (token, userName, newAvatarUrl) => {
 //VENUES
 export const fetchSingleVenue = async (id) => {
     try {
-        const response = await http.get(`/venues/${id}`);
+        const response = await http.get(`/venues/${id}?_owner=true&_bookings=true`);
         return response.data;
     } catch (error) {
-        console.error("Error editing venue", error);
-        throw error;
+        throw new Error(`API request failed: ${error.message}`);
     }
 };
 
@@ -60,33 +55,25 @@ export const createVenue = (token, venueData) => {
         },
     });
 };
-// export const createVenue = (token, venueData) => {
-//     const config = {
-//         headers: {
-//             Authorization: `Bearer ${token}`, // Ensure token is correctly formatted
-//             'Content-Type': 'application/json',
-//         },
-//     };
 
-//     return http2.post(`/venues`, venueData, config) // Pass config object to include headers
-//         .then(response => {
-//             return response.data; // Return the response data if the request is successful
-//         })
-//         .catch(error => {
-//             // Handle error
-//             console.error('Error creating venue:', error);
-//             throw error; // Rethrow the error to be handled by the caller
-//         });
-// };
+export const updateVenue = async (id, token, venueData) => {
+    try {
+        const response = await http.put(`/venues/${id}`, venueData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response;
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.length > 0) {
+            const errorMessage = error.response.data.errors[0].message;
+            throw new Error(`Update venue failed: ${errorMessage}`);
+        } else {
+            throw new Error(`Update venue failed: ${errorMessage}`);
+        }
+    }
+};
 
-// export const editVenue = (id, token, venueData) => {
-//     return http.put(`/venues/${id}`, venueData, {
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//             'Content-Type': 'application/json',
-//         },
-//     });
-// };
 
 //BOOKINGS
 export const fetchBookings = (token, user) => {
