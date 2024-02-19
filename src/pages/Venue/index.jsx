@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Loading } from '../../components/Loading'
 import { fetchSingleVenue } from '../../services/api/api';
+import CurrencyFormatter from '../../utils/CurrencyFormatter';
 import BookingCalendar from '../../components/BookingCalendar';
 
 const VenuePage = () => {
@@ -17,7 +19,7 @@ const VenuePage = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />
   }
 
   if (error) {
@@ -83,7 +85,7 @@ const VenuePage = () => {
 
           <h3 className='text-lg font-semibold mt-4 text-secondary'>Price:</h3>
           <p>
-            <span className="font-bold">NOK</span> <span className="font-bold">{venue.price}</span> per night
+          <CurrencyFormatter amount={venue.price} /> per night
           </p>
 
         </div>
