@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useStore } from '../../stores/useStore';
 import { useNavigate, Link } from 'react-router-dom';
-import { fetchUserVenues, fetchBookings } from '../../services/api/http';
+import { fetchUserVenues, fetchBookings } from '../../services/api/api';
 import UpdateProfileForm from './forms/UpdateAvatarForm';
 import UpcomingBookings from './components/UpcomingBookings';
 import UsersVenues from './components/UsersVenues';

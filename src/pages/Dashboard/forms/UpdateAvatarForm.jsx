@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStore } from '../../../stores/useStore';
-import { updateProfileMedia } from '../../../services/api/http';
+import { updateProfileMedia } from '../../../services/api/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import AlertError from '../../../components/Alerts/Error';

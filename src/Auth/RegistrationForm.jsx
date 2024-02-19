@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { registerUser } from '../services/api/http';
+import { registerUser } from '../services/api/api';
 import AlertSuccess from '../components/Alerts/success';
 import AlertError from '../components/Alerts/error';
 

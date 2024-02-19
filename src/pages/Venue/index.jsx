@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSingleVenue } from '../../services/api/http';
+import { fetchSingleVenue } from '../../services/api/api';
 import BookingCalendar from '../../components/BookingCalendar';
 
 const VenuePage = () => {

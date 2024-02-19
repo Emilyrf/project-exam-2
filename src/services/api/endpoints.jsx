@@ -1,0 +1,12 @@
+export const AUTH_REGISTER_ENDPOINT = '/auth/register';
+export const AUTH_LOGIN_ENDPOINT = '/auth/login';
+export const UPDATE_PROFILE_MEDIA_ENDPOINT = (userName) => `/profiles/${userName}/media`;
+export const VENUES_ENDPOINT = '/venues';
+export const SINGLE_VENUE_ENDPOINT = (id) => `/venues/${id}?_owner=true&_bookings=true`;
+export const USER_VENUES_ENDPOINT = (userName) => `/profiles/${userName}/venues?_bookings=true`;
+export const DELETE_VENUE_ENDPOINT = (id) => `/venues/${id}`;
+export const CREATE_VENUE_ENDPOINT = '/venues';
+export const UPDATE_VENUE_ENDPOINT = (id) => `/venues/${id}`;
+export const USER_BOOKINGS_ENDPOINT = (userName) => `/profiles/${userName}/bookings?_venue=true`;
+export const DELETE_BOOKING_ENDPOINT = (id) => `/bookings/${id}`;
+export const CREATE_BOOKING_ENDPOINT = '/bookings';

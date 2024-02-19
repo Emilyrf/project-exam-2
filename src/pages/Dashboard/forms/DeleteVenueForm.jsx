@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { deleteVenue } from '../../../services/api/http';
+import { deleteVenue } from '../../../services/api/api';
 import { useStore } from '../../../stores/useStore';
 import AlertSuccess from '../../../components/Alerts/success';
 import AlertError from '../../../components/Alerts/error';

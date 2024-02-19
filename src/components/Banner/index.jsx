@@ -1,6 +1,6 @@
 import VenueFilter from '../Venues/VenueFilter';
 import { useQuery } from '@tanstack/react-query';
-import { fetchVenues } from '../../services/api/http';
+import { fetchVenues } from '../../services/api/api';
 
 export default function Banner() {
   const { data, isLoading, error } = useQuery({

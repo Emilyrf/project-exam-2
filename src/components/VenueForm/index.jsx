@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { useStore } from '../../stores/useStore';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { createVenue, fetchSingleVenue, updateVenue } from '../../services/api/http';
+import { createVenue, fetchSingleVenue, updateVenue } from '../../services/api/api';
 import CountrySelect from '../LocationSelect/CountrySelect';
 import ContinentSelect from '../LocationSelect/ContinentSelect';
 import AlertSuccess from '../Alerts/success';

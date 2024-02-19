@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import Banner from '../../components/Banner';
 import VenuesList from '../../components/Venues/VenueList';
-import { fetchVenues } from '../../services/api/http';
+import { fetchVenues } from '../../services/api/api';
 
 
 export default function Homepage() {

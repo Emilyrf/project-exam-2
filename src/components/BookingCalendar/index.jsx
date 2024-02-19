@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useStore } from '../../stores/useStore';
 import DayPicker from './DatePicker';
 import GuestInput from './GuestsInput';
-import { createBooking } from '../../services/api/http';
+import { createBooking } from '../../services/api/api';
 import AlertError from '../Alerts/error';
 import AlertSuccess from '../Alerts/success';
 
