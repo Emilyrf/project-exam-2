@@ -1,12 +1,4 @@
-import React from 'react';
-
-function formatDate(date) {
-    return new Date(date).toLocaleDateString('pt', {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric',
-    });
-}
+import DateFormatter from "../../../utils/DateFormatter";
 
 const ViewBookingsForm = ({ venue }) => {
     return (
@@ -19,7 +11,7 @@ const ViewBookingsForm = ({ venue }) => {
                 {venue.bookings && venue.bookings.length > 0 ? (
                     <ul> Bookings:
                         {venue.bookings.map((booking, index) => (
-                            <li key={index}> {formatDate(booking.dateFrom)} - {formatDate(booking.dateTo)}
+                            <li key={index}> <DateFormatter date={booking.dateFrom} /> - <DateFormatter date={booking.dateTo} />
                             </li>
                         ))}
                     </ul>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../../../stores/useStore';
 import DeleteBookingForm from '../forms/DeleteBookingForm';
-import { Link } from 'react-router-dom';
+import DateFormatter from '../../../utils/DateFormatter';
 
 function formatDate(date) {
   return new Date(date).toLocaleDateString('en', {
@@ -45,7 +45,7 @@ const UpcomingBookings = () => {
 
             <div className='flex justify-between items-center'>
               <p>
-                {formatDate(booking.dateFrom)} - {formatDate(booking.dateTo)}
+                <DateFormatter date={booking.dateFrom} /> - <DateFormatter date={booking.dateTo} />
               </p>
 
               <button
