@@ -62,7 +62,7 @@ const BookingCalendar = ({ bookedDates }) => {
   };
 
   return (
-    <div className='text-center ml-auto'>
+    <>
       <h3 className='text-lg font-semibold text-secondary'>Select a Date: </h3>
 
       {errorMessage && <AlertError errorMessage={errorMessage} />}
@@ -81,7 +81,7 @@ const BookingCalendar = ({ bookedDates }) => {
           Book Now
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -58,13 +58,13 @@ const VenuePage = () => {
           />
         </div>
       </div>
-      <div className='flex flex-col md:flex-row md:items-start m-4 '>
+      <div className='flex flex-col md:flex-row m-4 '>
         <div className='md:w-1/2'>
           <h3 className='text-lg font-semibold mt-4 text-secondary'>About the venue: </h3>
           <p className='text-gray-600'>{venue.description}</p>
-          <h3 className='text-lg font-semibold mt-4 text-secondary'>Max Guests </h3>
-          <p>{venue.maxGuests}</p>
-          <h3 className='text-lg font-semibold mt-4 text-secondary'>Included </h3>
+          <h3 className='text-lg font-semibold mt-4 text-secondary'>Number of Guests: </h3>
+          <p>{venue.maxGuests} guests</p>
+          <h3 className='text-lg font-semibold mt-4 text-secondary'>What this place offers:</h3>
           <ul className='list-disc'>
             {Object.entries(venue.meta).map(([key, value]) => (
               <li key={key} className='text-gray-600 flex items-center'>
@@ -85,12 +85,14 @@ const VenuePage = () => {
 
           <h3 className='text-lg font-semibold mt-4 text-secondary'>Price:</h3>
           <p>
-          <CurrencyFormatter amount={venue.price} /> per night
+            <CurrencyFormatter amount={venue.price} /> per night
           </p>
 
         </div>
-        <div className='md:w-1/2 self-center m-4'>
-          <BookingCalendar bookedDates={bookedDates} />
+        <div className='md:w-1/2 m-4 flex justify-center text-center'>
+          <div>
+            <BookingCalendar bookedDates={bookedDates} />
+          </div>
         </div>
       </div>
     </div>
