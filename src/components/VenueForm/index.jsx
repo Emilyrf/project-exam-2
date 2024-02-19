@@ -13,7 +13,7 @@ import AlertError from '../Alerts/error';
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   description: yup.string().required('Description is required'),
-  media: yup.array().of(yup.string()), // Array of strings for media URLs
+  media: yup.array().of(yup.string()),
   price: yup.number().required('Price is required'),
   maxGuests: yup.number().required('Maximum Guests is required'),
   rating: yup.number().default(0),
@@ -40,9 +40,9 @@ export default function VenueForm({ venueId }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, formState: { errors }, control } = useForm({
+  const { register, handleSubmit, reset, formState: { errors }, control, setValue } = useForm({
     resolver: yupResolver(validationSchema),
-  });  
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'media',
@@ -58,7 +58,7 @@ export default function VenueForm({ venueId }) {
             console.log('Redirecting because user is not the owner.');
             navigate('/not-found');
           }
-  
+
         } catch (error) {
           console.error('Error fetching venue:', error);
         }
@@ -67,7 +67,7 @@ export default function VenueForm({ venueId }) {
     }
   }, [venueId, reset, user.name, navigate]);
 
-   
+
   const onSubmit = async (data) => {
     try {
       if (!user.venueManager) {
@@ -96,11 +96,9 @@ export default function VenueForm({ venueId }) {
       setSuccessMessage('');
     }
   };
-  
+
   return (
     <div className='card  shadow-2xl bg-base-100'>
-      {successMessage && <AlertSuccess message={successMessage} />}
-      {errorMessage && <AlertError errorMessage={errorMessage} />}
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <div className='form-control'>
           <label className='label' htmlFor='name'>
@@ -185,10 +183,24 @@ export default function VenueForm({ venueId }) {
             )}
           </div>
           <div className='form-control'>
-            <CountrySelect label='Country' name='location.country' register={register} />
-            <ContinentSelect label='Continent' name='location.continent' register={register} />
+            <CountrySelect
+              label='Country'
+              name='location.country'
+              register={register}
+              setValue={setValue}
+            // value={location?.country || ''} 
+            />
+
+            <ContinentSelect
+              label='Continent'
+              name='location.continent'
+              // value={location.continent} 
+              register={register}
+              setValue={setValue} />
           </div>
         </div>
+        {successMessage && <AlertSuccess message={successMessage} />}
+        {errorMessage && <AlertError errorMessage={errorMessage} />}
         <button className='btn btn-primary mt-8' type='submit'>
           {venueId ? 'Update Venue' : 'Create Venue'}
         </button>
