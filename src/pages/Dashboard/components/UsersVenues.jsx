@@ -19,9 +19,9 @@ const UsersVenues = () => {
   }
 
   return (
-    <div>
+    <>
       {venues.map((venue) => (
-        <div key={venue.id} className='card  bg-base-100 shadow-xl card-compact relative'>
+        <div key={venue.id} className='card bg-base-100 shadow-xl card-compact relative'>
           <Link to={`/venue/${venue.id}`}>
             <figure className='px-10 pt-10'>
               <img
@@ -81,7 +81,7 @@ const UsersVenues = () => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

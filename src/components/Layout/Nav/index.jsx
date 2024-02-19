@@ -8,51 +8,48 @@ export default function Navbar() {
 
   return (
     <header>
-      <nav className='navbar  bg-primary text-primary-content'>
-        <div className='flex-1'>
-          <NavLink
-            to='/'
-            className={`btn btn-ghost text-xl ${
-              currentLocation.pathname === '/' ? 'font-bold underline' : ''
+      <nav className='flex h-20 bg-base-200 justify-center items-center px-5 md:gap-x-12 px-5 sm:rounded-xl sm:m-5'>
+
+
+        <NavLink
+          to='/'
+          className={`btn btn-ghost text-xl ${currentLocation.pathname === '/' ? 'font-bold text-primary underline' : ''
             }`}
-          >
-            Holidaze
-          </NavLink>
-        </div>
-        <div className='flex-1'>
-          {!token ? (
-            <>
-              <NavLink
-                to='/login'
-                className={`btn btn-secondary text-xl ${
-                  currentLocation.pathname === '/login' ? 'font-bold underline' : ''
+        >
+          Holidaze
+        </NavLink>
+
+
+        {!token ? (
+          <>
+            <NavLink
+              to='/register'
+              className={`btn btn-ghost text-xl ${currentLocation.pathname === '/register' ? 'font-bold text-primary underline' : ''
                 }`}
-              >
-                Login
-              </NavLink>
-              <NavLink
-                to='/register'
-                className={`btn btn-ghost text-xl ${
-                  currentLocation.pathname === '/register' ? 'font-bold underline' : ''
+            >
+              Register
+            </NavLink>
+            <NavLink
+              to='/login'
+              className={`btn btn-secondary text-xl ${currentLocation.pathname === '/login' ? 'font-bold text-primary' : ''
                 }`}
-              >
-                Register
-              </NavLink>
-            </>
-          ) : (
-            <>
-              <NavLink
-                to='/dashboard'
-                className={`btn btn-ghost text-xl ${
-                  currentLocation.pathname === '/dashboard' ? 'font-bold underline' : ''
+            >
+              Login
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink
+              to='/dashboard'
+              className={`btn btn-ghost text-xl ${currentLocation.pathname === '/dashboard' ? 'font-bold text-primary underline' : ''
                 }`}
-              >
-                Dashboard
-              </NavLink>
-              <LogoutButton />
-            </>
-          )}
-        </div>
+            >
+              Dashboard
+            </NavLink>
+            <LogoutButton />
+          </>
+        )}
+
       </nav>
     </header>
   );
