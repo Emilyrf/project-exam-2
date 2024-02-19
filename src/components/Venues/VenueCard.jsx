@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CurrencyFormatter from '../../utils/CurrencyFormatter';
 
 export default function VenueCard({ venue }) {
   const defaultImage = '/assets/temporaria.jpeg';
@@ -19,7 +20,7 @@ export default function VenueCard({ venue }) {
       <div className='card-body'>
         <h2 className='card-title'>{venue.name}</h2>
         <p>{venue.description.slice(0, 40)}...</p>
-        <p>${venue.price} night</p>
+        <CurrencyFormatter amount={venue.price} />
         <div className='card-actions justify-end'>
           <Link to={`/venue/${venue.id}`}>
             <button className='btn btn-primary'>Check it out!</button>
