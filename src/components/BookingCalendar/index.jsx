@@ -8,65 +8,62 @@ import AlertError from '../Alerts/error';
 import AlertSuccess from '../Alerts/success';
 
 const BookingCalendar = ({ bookedDates }) => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const token = useStore((state) => state.token);
+  const setSelectedDateRange = useStore(state => state.setSelectedDateRange);
+  const selectedDateRange = useStore(state => state.selectedDateRange);
   const [numGuests, setNumGuests] = useState(1);
   const { id: venueId } = useParams();
   const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleDateSelection = (selectedRange) => {
-    if (selectedRange) {
-      setStartDate(selectedRange.from);
-      setEndDate(selectedRange.to);
-    } else {
-      setStartDate(null);
-      setEndDate(null);
-    }
-  }
-
-  const handleBooking = async () => {
-    console.log('Booking button clicked');
-    console.log('Start date:', startDate);
-    console.log('End date:', endDate);
-
-    try {
-      if (!venueId) {
-        console.error('Venue ID is not available in the URL');
-        return;
-      }
-
-      if (!startDate || !endDate) {
-        setErrorMessage('Please select a date range.');
-        return;
-      }
-
-      await createBooking({
-        dateFrom: startDate.toISOString(),
-        dateTo: endDate.toISOString(),
-        guests: numGuests,
-        venueId: venueId
-      }, token);
-
-      console.log('Booking successful!');
-      setSuccessMessage('Booking successful!');
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.errors) {
-        const errorMessage = error.response.data.errors[0].message;
-        setErrorMessage(errorMessage);
-      } else {
-        setErrorMessage('An error occurred while processing your booking.');
-      }
-    }
+    setSelectedDateRange(selectedRange);
   };
 
+  const handleBooking = async () => {
+    const { from: startDate, to: endDate } = selectedDateRange || {};
+
+    try {
+        if (!venueId) {
+            console.error('Venue ID is not available in the URL');
+            return;
+        }
+
+        if (!startDate || !endDate) {
+            setErrorMessage('Please select a date range.');
+            return;
+        }
+
+        const currentDate = new Date(); 
+        if (startDate < currentDate || endDate < currentDate) {
+            setErrorMessage('Please select future dates for booking.');
+            return;
+        }
+
+        await createBooking({
+            dateFrom: startDate.toISOString(),
+            dateTo: endDate.toISOString(),
+            guests: numGuests,
+            venueId: venueId
+        }, token);
+        setSuccessMessage('Booking successful!');
+        setErrorMessage('');
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+            const errorMessage = error.response.data.errors[0].message;
+            setErrorMessage(errorMessage);
+        } else {
+            setErrorMessage('An error occurred while processing your booking.');
+        }
+        setSuccessMessage('');
+    }
+};
   return (
     <>
       <h3 className='text-lg font-semibold text-secondary'>Select a Date: </h3>
 
       {errorMessage && <AlertError errorMessage={errorMessage} />}
-      {successMessage && <AlertSuccess successMessage={successMessage} />}
+      {successMessage && <AlertSuccess message={successMessage} />}
 
       <DayPicker onSelect={handleDateSelection} bookedDates={bookedDates} />
 
@@ -77,7 +74,7 @@ const BookingCalendar = ({ bookedDates }) => {
         />
       </div>
       <div>
-        <button className='btn btn-primary mt-3' onClick={handleBooking}>
+      <button className='btn btn-primary mt-3' onClick={handleBooking}>
           Book Now
         </button>
       </div>

@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useStore } from '../../stores/useStore';
 import { useQuery } from '@tanstack/react-query';
 import { Loading } from '../../components/Loading'
 import { fetchSingleVenue } from '../../services/api/api';
 import CurrencyFormatter from '../../utils/CurrencyFormatter';
 import BookingCalendar from '../../components/BookingCalendar';
+import AlertInfo from '../../components/Alerts/info';
 
 const VenuePage = () => {
   const defaultImage = '/assets/temporaria.jpeg';
@@ -17,6 +18,7 @@ const VenuePage = () => {
     queryKey: ['singleVenue', id],
     queryFn: () => fetchSingleVenue(id),
   });
+  const user = useStore((state) => state.user);
 
   if (isLoading) {
     return <Loading />
@@ -89,11 +91,21 @@ const VenuePage = () => {
           </p>
 
         </div>
-        <div className='md:w-1/2 m-4 flex justify-center text-center'>
-          <div>
-            <BookingCalendar bookedDates={bookedDates} />
+        {(user && !user.venueManager) && (
+          <div className='md:w-1/2 m-4 flex justify-center text-center'>
+            <div>
+              <BookingCalendar bookedDates={bookedDates} />
+            </div>
           </div>
-        </div>
+        )}
+        {(!user || user.venueManager) && (
+          <div className='md:w-1/2 m-4 flex justify-center text-center'>
+            <div>
+              <AlertInfo message={'Login as a customer to be able to book a stay in this venue.'}/>
+
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

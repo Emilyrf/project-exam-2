@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useStore } from '../../stores/useStore';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
-const CustomDatePicker = ({ bookedDates, onSelectDate }) => {
-  const pastMonth = new Date();
+const css = `
+  .my-selected:not([disabled]) { 
+    font-weight: bold; 
+    border: 2px solid currentColor;
+  }
+  .my-selected:hover:not([disabled]) { 
+    border-color: blue;
+    color: blue;
+  }
+  .my-today { 
+    font-weight: bold;
+    font-size: 140%; 
+    color: red;
+  }
+`;
+
+const CustomDatePicker = ({ bookedDates }) => {
+  const setSelectedDateRange = useStore(state => state.setSelectedDateRange);
   const [range, setRange] = useState();
+  const pastMonth = new Date();
+
 
   let disabledDays = [];
   if (bookedDates) {
@@ -29,20 +48,29 @@ const CustomDatePicker = ({ bookedDates, onSelectDate }) => {
 
   const handleDateChange = (selectedRange) => {
     setRange(selectedRange);
-    if (typeof onSelectDate === 'function') {
-      onSelectDate(selectedRange); // Pass the selected date range to the parent component
-    }
+    setSelectedDateRange(selectedRange);
   };
 
   return (
+    <>
+    <style>{css}</style>
     <DayPicker
+
       mode="range"
       defaultMonth={pastMonth}
       selected={range}
       footer={footer}
       onSelect={handleDateChange}
       disabled={disabledDays}
+      modifiersClassNames={{
+        selected: 'my-selected',
+        today: 'my-today'
+      }}
+      modifiersStyles={{
+        disabled: { fontSize: '75%' }
+      }}
     />
+  </>
   );
 };
 
