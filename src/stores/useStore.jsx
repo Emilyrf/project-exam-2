@@ -16,6 +16,15 @@ export const useStore = create(
         setVenues: (venues) => set(() => ({ venues: venues })),
         bookings: [],
         setBookings: (bookings) => set(() => ({ bookings: bookings })),
+        selectedDateRange: {},
+        setSelectedDateRange: (dateRange) => set(() => ({ selectedDateRange: dateRange })),
+        clearStore: () => set(() => ({ 
+            token: null, 
+            user: null, 
+            selectedDateRange: {}, 
+            venues: [], 
+            bookings: [] 
+        }))
     }),
         {
             name: 'store'

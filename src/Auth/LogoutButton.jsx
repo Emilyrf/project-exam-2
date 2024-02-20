@@ -3,18 +3,11 @@ import { useStore } from '../stores/useStore';
 
 function LogoutButton() {
 
-  const setUser = useStore((state) => state.setUser);
-  const setToken = useStore((state) => state.setToken);
   const navigate = useNavigate();
+  const clearStore = useStore((state) => state.clearStore);
 
   function handleLogout() {
-    setToken(null);
-    setUser({
-      name: null,
-      email: null,
-      avatar: null,
-      venueManager: false,
-    });
+    clearStore()
     navigate('/');
   }
 
