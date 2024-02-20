@@ -26,7 +26,7 @@ const UsersVenues = () => {
             <figure className='px-10 pt-10'>
               <img
                 src={venue.media.length > 0 ? venue.media[0] : defaultImage}
-                alt={venue.description}
+                alt={venue.name}
                 className='rounded-xl'
               />
             </figure>
@@ -56,7 +56,7 @@ const UsersVenues = () => {
               </Link>
               <button
                 className='btn'
-                onClick={() => document.getElementById('delete_venue').showModal()}
+                onClick={() => document.querySelector(`[data-id="${venue.id}"][id=delete_venue]`).showModal()}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -75,6 +75,7 @@ const UsersVenues = () => {
               </button>
               <DeleteVenueForm
                 id={venue.id}
+                name={venue.name}
                 onDeleteSuccess={() => handleDeleteSuccess(venue.id)}
                 onDeleteError={handleDeleteError} />
             </div>

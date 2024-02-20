@@ -34,7 +34,7 @@ const UpcomingBookings = () => {
             <figure className='h-32 w-32 rounded'>
               <img
                 src={booking.venue.media.length > 0 ? booking.venue.media[0] : defaultImage}
-                alt={booking.description}
+                alt={booking.venue.name}
                 className='rounded-xl'
               />
             </figure>
@@ -50,7 +50,7 @@ const UpcomingBookings = () => {
 
               <button
                 className='btn'
-                onClick={() => document.getElementById('delete_booking').showModal()}
+                onClick={() => document.querySelector(`[data-id="${booking.id}"][id=delete_booking]`).showModal()}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -69,6 +69,7 @@ const UpcomingBookings = () => {
               </button>
               <DeleteBookingForm 
                 id={booking.id} 
+                name={booking.venue.name}
                 onDeleteSuccess={() => handleDeleteSuccess(booking.id)} 
                 onDeleteError={handleDeleteError} 
               />

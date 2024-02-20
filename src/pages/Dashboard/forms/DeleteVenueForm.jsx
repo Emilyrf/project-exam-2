@@ -4,7 +4,7 @@ import { useStore } from '../../../stores/useStore';
 import AlertSuccess from '../../../components/Alerts/success';
 import AlertError from '../../../components/Alerts/error';
 
-const DeleteVenueForm = ({ id, onDeleteSuccess, onDeleteError }) => {
+const DeleteVenueForm = ({ id, name, onDeleteSuccess, onDeleteError }) => {
   const token = useStore((state) => state.token);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
@@ -31,13 +31,12 @@ const DeleteVenueForm = ({ id, onDeleteSuccess, onDeleteError }) => {
   };
 
   return (
-    <dialog id='delete_venue' className='modal'>
+    <dialog data-id={id} id='delete_venue' className='modal'>
       <div className='modal-box'>
         <form method='dialog'>
-          {/* if there is a button in form, it will close the modal */}
           <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
         </form>
-        <h3 className='font-bold text-lg'>Venue Name</h3>
+        <h3 className='font-bold text-lg'>{name}</h3>
         <p className='py-4'>Are you sure you want to delete this venue?</p>
 
         {deleteSuccess && <AlertSuccess message='Venue deleted successfully!' />}

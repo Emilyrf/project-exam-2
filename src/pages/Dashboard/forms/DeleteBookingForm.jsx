@@ -5,7 +5,7 @@ import AlertSuccess from '../../../components/Alerts/success';
 import AlertError from '../../../components/Alerts/error';
 
 
-const DeleteBookingForm = ({ id, onDeleteSuccess, onDeleteError }) => {
+const DeleteBookingForm = ({ id, name, onDeleteSuccess, onDeleteError }) => {
   const token = useStore((state) => state.token);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
@@ -17,6 +17,7 @@ const DeleteBookingForm = ({ id, onDeleteSuccess, onDeleteError }) => {
     setIsDeleting(true);
     try {
       const response = await deleteBooking(id, token);
+      console.log(id);
       if (response.status === 204) {
         let newBookings = bookings.filter(booking => booking.id !== id)
         setBookings(newBookings);
@@ -36,12 +37,12 @@ const DeleteBookingForm = ({ id, onDeleteSuccess, onDeleteError }) => {
   };
 
   return (
-    <dialog id='delete_booking' className='modal'>
+    <dialog data-id={id} id='delete_booking' className='modal'>
       <div className='modal-box'>
         <form method='dialog'>
           <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
         </form>
-        <h3 className='font-bold text-lg'>Venue Name</h3>
+        <h3 className='font-bold text-lg'>{name}</h3>
         <p className='py-4'>Are you sure you want to delete this Booking?</p>
 
         {deleteSuccess && <AlertSuccess message='Booking deleted successfully!' />}
