@@ -4,8 +4,8 @@ import { useStore } from '../../../stores/useStore';
 import { updateProfileMedia } from '../../../services/api/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import AlertError from '../../../components/Alerts/Error';
-import AlertSuccess from '../../../components/Alerts/Success';
+import AlertError from '../../../components/Alerts/error';
+import AlertSuccess from '../../../components/Alerts/success';
 
 const validationSchema = yup.object().shape({
   url: yup.string().url('Please enter a valid URL').required('URL is required'),
