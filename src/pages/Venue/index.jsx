@@ -106,7 +106,7 @@ const VenuePage = () => {
             <CurrencyFormatter amount={venue.price} /> per night
           </p>
         </div>
-        {user && !user.venueManager && (
+        {token && !user.venueManager && (
           <div className='md:w-1/2 m-4 flex justify-center text-center'>
             <div>
               <BookingCalendar bookedDates={bookedDates} />
