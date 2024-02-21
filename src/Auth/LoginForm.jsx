@@ -21,7 +21,7 @@ const validationSchema = yup.object().shape({
     .min(8, 'Password must be at least 8 characters.'),
 });
 
-export default function Login() {
+export default function LoginForm() {
   const setToken = useStore((state) => state.setToken);
   const setUser = useStore((state) => state.setUser);
   const navigate = useNavigate();
