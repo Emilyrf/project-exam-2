@@ -32,16 +32,15 @@ const UpdateProfileForm = () => {
     try {
       const response = await updateProfileMedia(token, user.name, data.url);
       if (response.status === 200) {
-      setUser({
-        name: user.name,
-        email: user.email,
-        avatar: data.url,
-        venueManager: user.venueManager,
-    })
-      setErrorMessage('');
-      setSuccessMessage('Avatar atualizado!');
-    }
-
+        setUser({
+          name: user.name,
+          email: user.email,
+          avatar: data.url,
+          venueManager: user.venueManager,
+        });
+        setErrorMessage('');
+        setSuccessMessage('Avatar atualizado!');
+      }
     } catch (error) {
       setErrorMessage(`Error updating profile media: ${error}`);
     } finally {
@@ -77,11 +76,7 @@ const UpdateProfileForm = () => {
               <label className='label' htmlFor='url'>
                 URL:
               </label>
-              <input
-                className='input input-bordered m-2'
-                placeholder='Url'
-                {...register('url')}
-              />
+              <input className='input input-bordered m-2' placeholder='Url' {...register('url')} />
               {errors.url && <span className='text-red-600'>{errors.url.message}</span>}
             </div>
             <button type='submit' className='btn btn-primary'>

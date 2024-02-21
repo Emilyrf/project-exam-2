@@ -10,7 +10,7 @@ const countryOptions = countries.map((country) => ({
 
 const CountrySelect = ({ name, label, register, setValue, value }) => {
   const handleChange = (selectedOption) => {
-    setValue(name, selectedOption.label); 
+    setValue(name, selectedOption.label);
   };
 
   return (
@@ -18,14 +18,9 @@ const CountrySelect = ({ name, label, register, setValue, value }) => {
       <label className='label' htmlFor={name}>
         {label}:
       </label>
-      <Select
-        options={countryOptions}
-        onChange={handleChange}
-        value={value}
-      />
+      <Select options={countryOptions} onChange={handleChange} value={value} />
     </div>
   );
 };
-
 
 export default CountrySelect;

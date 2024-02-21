@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const http = axios.create({
-    baseURL: 'https://nf-api.onrender.com/api/v1/holidaze',
-})
+  baseURL: 'https://nf-api.onrender.com/api/v1/holidaze',
+});
 
 export default http;

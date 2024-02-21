@@ -4,7 +4,6 @@ import { useStore } from '../../../stores/useStore';
 import AlertSuccess from '../../../components/Alerts/success';
 import AlertError from '../../../components/Alerts/error';
 
-
 const DeleteBookingForm = ({ id, name, onDeleteSuccess, onDeleteError }) => {
   const token = useStore((state) => state.token);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -19,7 +18,7 @@ const DeleteBookingForm = ({ id, name, onDeleteSuccess, onDeleteError }) => {
       const response = await deleteBooking(id, token);
       console.log(id);
       if (response.status === 204) {
-        let newBookings = bookings.filter(booking => booking.id !== id)
+        let newBookings = bookings.filter((booking) => booking.id !== id);
         setBookings(newBookings);
         setDeleteSuccess(true);
         onDeleteSuccess();

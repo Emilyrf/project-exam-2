@@ -16,7 +16,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");
+      navigate('/login');
       return;
     }
 
@@ -26,7 +26,7 @@ export default function DashboardPage() {
           setVenues(res.data);
         })
         .catch((error) => {
-          console.error("Error fetching venues:", error);
+          console.error('Error fetching venues:', error);
         });
     } else {
       fetchBookings(token, user)
@@ -34,7 +34,7 @@ export default function DashboardPage() {
           setBookings(res.data);
         })
         .catch((error) => {
-          console.error("Error fetching bookings:", error);
+          console.error('Error fetching bookings:', error);
         });
     }
   }, [token, user, setVenues, setBookings, navigate]);
@@ -45,17 +45,19 @@ export default function DashboardPage() {
 
   return (
     <>
-      <div className="hero bg-base-100 shadow-xl">
-        <div className="hero-content flex-col lg:flex-row m-4">
+      <div className='hero bg-base-100 shadow-xl'>
+        <div className='hero-content flex-col lg:flex-row m-4'>
           <img
-            src={user.avatar || defaultAvatar} 
+            src={user.avatar || defaultAvatar}
             alt={user.name}
-            className='rounded-full object-cover w-72 h-72' 
+            className='rounded-full object-cover w-72 h-72'
           />
-          <div className="mt-4 text-center">
-            <h1 className="lg:text-5xl text-2xl font-bold text-secondary p-4">Welcome, {user ? user.name : 'Guest'}</h1>
+          <div className='mt-4 text-center'>
+            <h1 className='lg:text-5xl text-2xl font-bold text-secondary p-4'>
+              Welcome, {user ? user.name : 'Guest'}
+            </h1>
             <h2>Email: {user.email}</h2>
-            <div className="mt-4 text">
+            <div className='mt-4 text'>
               <button
                 className='btn btn-primary text-xl'
                 onClick={() => document.getElementById('update_avatar_modal').showModal()}
@@ -73,9 +75,9 @@ export default function DashboardPage() {
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8'>
             <UsersVenues />
           </div>
-          <div className="text-center">
+          <div className='text-center'>
             <Link to={`/create`}>
-              <button className="btn btn-primary text-xl m-4 ">Create Venue</button>
+              <button className='btn btn-primary text-xl m-4 '>Create Venue</button>
             </Link>
           </div>
         </section>

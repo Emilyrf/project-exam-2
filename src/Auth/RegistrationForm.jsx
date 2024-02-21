@@ -42,8 +42,6 @@ const RegistrationForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
-
-
   const onSubmit = async (data) => {
     try {
       data.isVenueManager = isVenueManager;

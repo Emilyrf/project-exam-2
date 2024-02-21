@@ -23,7 +23,7 @@ const ContinentSelect = ({ name, label, register, setValue, value }) => {
       <Select
         options={continents}
         onChange={handleChange}
-        value={continents.find(option => option.value === value)}
+        value={continents.find((option) => option.value === value)}
       />
     </div>
   );

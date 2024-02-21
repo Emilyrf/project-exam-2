@@ -40,7 +40,14 @@ export default function VenueForm({ venueId }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, formState: { errors }, control, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    control,
+    setValue,
+  } = useForm({
     resolver: yupResolver(validationSchema),
   });
   const { fields, append, remove } = useFieldArray({
@@ -58,7 +65,6 @@ export default function VenueForm({ venueId }) {
             console.log('Redirecting because user is not the owner.');
             navigate('/not-found');
           }
-
         } catch (error) {
           console.error('Error fetching venue:', error);
         }
@@ -66,7 +72,6 @@ export default function VenueForm({ venueId }) {
       fetchVenue();
     }
   }, [venueId, reset, user.name, navigate]);
-
 
   const onSubmit = async (data) => {
     try {
@@ -122,11 +127,21 @@ export default function VenueForm({ venueId }) {
           </label>
           {fields.map((media, index) => (
             <div key={media.id}>
-              <input className='input input-bordered' {...register(`media[${index}]`)} type='text' />
-              {index > 0 && <button type='button' onClick={() => remove(index)}>Remove</button>}
+              <input
+                className='input input-bordered'
+                {...register(`media[${index}]`)}
+                type='text'
+              />
+              {index > 0 && (
+                <button type='button' onClick={() => remove(index)}>
+                  Remove
+                </button>
+              )}
             </div>
           ))}
-          <button type='button' onClick={() => append('')}>Add Media</button>
+          <button type='button' onClick={() => append('')}>
+            Add Media
+          </button>
           {errors.media && <span className='text-red-600'>{errors.media.message}</span>}
         </div>
 
@@ -188,15 +203,16 @@ export default function VenueForm({ venueId }) {
               name='location.country'
               register={register}
               setValue={setValue}
-            // value={location?.country || ''} 
+              // value={location?.country || ''}
             />
 
             <ContinentSelect
               label='Continent'
               name='location.continent'
-              // value={location.continent} 
+              // value={location.continent}
               register={register}
-              setValue={setValue} />
+              setValue={setValue}
+            />
           </div>
         </div>
         {successMessage && <AlertSuccess message={successMessage} />}
@@ -207,6 +223,4 @@ export default function VenueForm({ venueId }) {
       </form>
     </div>
   );
-};
-
-
+}

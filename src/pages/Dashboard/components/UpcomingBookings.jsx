@@ -17,9 +17,7 @@ const UpcomingBookings = () => {
   };
 
   if (bookings.length === 0) {
-    return (
-      <AlertInfo message={'You have no upcoming bookings.'} />
-    )
+    return <AlertInfo message={'You have no upcoming bookings.'} />;
   }
 
   return (
@@ -34,9 +32,7 @@ const UpcomingBookings = () => {
             />
           </figure>
           <div className='card-body flex-grow ml-4'>
-            <h2 className='card-title'>
-              {booking.venue.name}
-            </h2>
+            <h2 className='card-title'>{booking.venue.name}</h2>
 
             <div className='flex justify-between items-center'>
               <p>
@@ -45,7 +41,9 @@ const UpcomingBookings = () => {
 
               <button
                 className='btn'
-                onClick={() => document.querySelector(`[data-id="${booking.id}"][id=delete_booking]`).showModal()}
+                onClick={() =>
+                  document.querySelector(`[data-id="${booking.id}"][id=delete_booking]`).showModal()
+                }
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className='text-center '>
           <h1 className='text-5xl font-bold my-2'>Page not found!</h1>
           <p className='my-2 text-gray-800'>
-            Looks like the page you are looking for doesn't exist. Sorry about that!
+            Looks like the page you are looking for does not exist. Sorry about that!
           </p>
           <button className='w-full my-2 btn btn-primary' onClick={() => navigate(-1)}>
             Go back

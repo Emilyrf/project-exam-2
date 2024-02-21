@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from '../stores/useStore';
 
 function LogoutButton() {
-
   const navigate = useNavigate();
   const clearStore = useStore((state) => state.clearStore);
 
   function handleLogout() {
-    clearStore()
+    clearStore();
     navigate('/');
   }
 

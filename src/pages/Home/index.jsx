@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import Banner from '../../components/Banner';
 import VenuesList from '../../components/Venues/VenueList';
 import { fetchVenues } from '../../services/api/api';
-import { Loading } from '../../components/Loading'
-
+import { Loading } from '../../components/Loading';
 
 export default function Homepage() {
   const { data, isLoading, error } = useQuery({
@@ -12,7 +11,7 @@ export default function Homepage() {
   });
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   if (error) {

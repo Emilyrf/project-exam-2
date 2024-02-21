@@ -2,12 +2,23 @@ export default function Footer() {
   return (
     <footer className='footer footer-center p-10 bg-primary text-primary-content'>
       <aside>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          className='h-20 w-20'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke='currentColor'
+          strokeWidth='2'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
+          />
         </svg>
         <p className='font-bold'>
           Holidaze - Project Exam 2 <br />
-          This is an assigment for Noroff FED 
+          This is an assigment for Noroff FED
         </p>
         <p>By Emily Ferreira</p>
       </aside>

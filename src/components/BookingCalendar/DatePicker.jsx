@@ -20,10 +20,9 @@ const css = `
 `;
 
 const CustomDatePicker = ({ bookedDates }) => {
-  const setSelectedDateRange = useStore(state => state.setSelectedDateRange);
+  const setSelectedDateRange = useStore((state) => state.setSelectedDateRange);
   const [range, setRange] = useState();
   const pastMonth = new Date();
-
 
   let disabledDays = [];
   if (bookedDates) {
@@ -53,24 +52,23 @@ const CustomDatePicker = ({ bookedDates }) => {
 
   return (
     <>
-    <style>{css}</style>
-    <DayPicker
-
-      mode="range"
-      defaultMonth={pastMonth}
-      selected={range}
-      footer={footer}
-      onSelect={handleDateChange}
-      disabled={disabledDays}
-      modifiersClassNames={{
-        selected: 'my-selected',
-        today: 'my-today'
-      }}
-      modifiersStyles={{
-        disabled: { fontSize: '75%' }
-      }}
-    />
-  </>
+      <style>{css}</style>
+      <DayPicker
+        mode='range'
+        defaultMonth={pastMonth}
+        selected={range}
+        footer={footer}
+        onSelect={handleDateChange}
+        disabled={disabledDays}
+        modifiersClassNames={{
+          selected: 'my-selected',
+          today: 'my-today',
+        }}
+        modifiersStyles={{
+          disabled: { fontSize: '75%' },
+        }}
+      />
+    </>
   );
 };
 

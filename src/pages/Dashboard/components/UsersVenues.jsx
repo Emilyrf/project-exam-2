@@ -8,7 +8,7 @@ import AlertInfo from '../../../components/Alerts/info';
 const UsersVenues = () => {
   const [venues, setVenues] = useState(useStore((state) => state.venues));
   const defaultImage = '/assets/holidaze-venue.jpeg';
-  
+
   const handleDeleteSuccess = (deletedVenueId) => {
     setVenues(venues.filter((venue) => venue.id !== deletedVenueId));
   };
@@ -17,9 +17,7 @@ const UsersVenues = () => {
   };
 
   if (venues.length === 0) {
-    return( 
-    <AlertInfo message={'You haven`t posted any venues yet'} />
-    )
+    return <AlertInfo message={'You haven`t posted any venues yet'} />;
   }
 
   return (
@@ -37,7 +35,12 @@ const UsersVenues = () => {
           </Link>
           <div className='card-body items-center text-center'>
             <h2 className='card-title'>{venue.name}</h2>
-            <button className="btn" onClick={() => document.getElementById('view_bookings').showModal()}>View bookings</button>
+            <button
+              className='btn'
+              onClick={() => document.getElementById('view_bookings').showModal()}
+            >
+              View bookings
+            </button>
             <ViewBookingsForm venue={venue} />
             <div className='card-actions justify-end'>
               <Link to={`/edit/${venue.id}`}>
@@ -60,7 +63,9 @@ const UsersVenues = () => {
               </Link>
               <button
                 className='btn'
-                onClick={() => document.querySelector(`[data-id="${venue.id}"][id=delete_venue]`).showModal()}
+                onClick={() =>
+                  document.querySelector(`[data-id="${venue.id}"][id=delete_venue]`).showModal()
+                }
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -81,7 +86,8 @@ const UsersVenues = () => {
                 id={venue.id}
                 name={venue.name}
                 onDeleteSuccess={() => handleDeleteSuccess(venue.id)}
-                onDeleteError={handleDeleteError} />
+                onDeleteError={handleDeleteError}
+              />
             </div>
           </div>
         </div>

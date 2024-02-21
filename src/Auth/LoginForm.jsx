@@ -13,9 +13,12 @@ const validationSchema = yup.object().shape({
     .required('Email is required')
     .matches(
       /^[\w\.-]+@(stud\.)?noroff\.no$/,
-      'Email must be a valid stud.noroff.no or noroff.no email address.'
+      'Email must be a valid stud.noroff.no or noroff.no email address.',
     ),
-  password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters.'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters.'),
 });
 
 export default function Login() {
@@ -24,8 +27,12 @@ export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(validationSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = (data) => {
@@ -41,19 +48,21 @@ export default function Login() {
             avatar: res.data.avatar,
             venueManager: res.data.venueManager,
           });
-          navigate("/dashboard");
+          navigate('/dashboard');
         }
       })
       .catch((error) => {
-        console.error("Login failed:", error);
-        setErrorMessage("Invalid email or password.");
+        console.error('Login failed:', error);
+        setErrorMessage('Invalid email or password.');
       });
   };
 
   return (
     <div className='card shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
       {errorMessage && <AlertError errorMessage={errorMessage} />}
-      <h1 className='text-3xl font-bold text-secondary m-5 text-center'>Login to your Holidaze account:</h1>
+      <h1 className='text-3xl font-bold text-secondary m-5 text-center'>
+        Login to your Holidaze account:
+      </h1>
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
           <div className='form-control'>
