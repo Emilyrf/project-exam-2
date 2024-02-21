@@ -19,6 +19,7 @@ const VenuePage = () => {
     queryFn: () => fetchSingleVenue(id),
   });
   const user = useStore((state) => state.user);
+  const token = useStore((state) => state.token);
 
   if (isLoading) {
     return <Loading />;
@@ -112,7 +113,7 @@ const VenuePage = () => {
             </div>
           </div>
         )}
-        {(!user || user.venueManager) && (
+        {(!token || user.venueManager) && (
           <div className='md:w-1/2 m-4 flex justify-center text-center'>
             <div>
               <AlertInfo message={'Login as a customer to be able to book a stay in this venue.'} />
