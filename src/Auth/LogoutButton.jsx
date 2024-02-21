@@ -12,7 +12,7 @@ function LogoutButton() {
   }
 
   return (
-    <button className='btn btn-active btn-accent text-xl' onClick={handleLogout}>
+    <button className='btn btn-secondary text-xl' onClick={handleLogout}>
       Logout
     </button>
   );

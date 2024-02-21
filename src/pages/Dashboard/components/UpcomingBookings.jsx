@@ -2,18 +2,11 @@ import { useState } from 'react';
 import { useStore } from '../../../stores/useStore';
 import DeleteBookingForm from '../forms/DeleteBookingForm';
 import DateFormatter from '../../../utils/DateFormatter';
-
-function formatDate(date) {
-  return new Date(date).toLocaleDateString('en', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
+import AlertInfo from '../../../components/Alerts/info';
 
 const UpcomingBookings = () => {
-  const [bookings, setBookings] = useState(useStore((state) => state.bookings)); 
-  const defaultImage = '/assets/temporaria.jpeg';
+  const [bookings, setBookings] = useState(useStore((state) => state.bookings));
+  const defaultImage = '/assets/holidaze-venue.jpeg';
 
   const handleDeleteSuccess = (deletedBookingId) => {
     setBookings(bookings.filter((booking) => booking.id !== deletedBookingId));
@@ -24,20 +17,22 @@ const UpcomingBookings = () => {
   };
 
   if (bookings.length === 0) {
-    return <p>You have no upcoming bookings.</p>;
+    return (
+      <AlertInfo message={'You have no upcoming bookings.'} />
+    )
   }
 
   return (
     <div>
       {bookings.map((booking) => (
         <div key={booking.id} className='card card-side mx-5 flex items-center'>
-            <figure className='h-32 w-32 rounded'>
-              <img
-                src={booking.venue.media.length > 0 ? booking.venue.media[0] : defaultImage}
-                alt={booking.venue.name}
-                className='rounded-xl'
-              />
-            </figure>
+          <figure className='h-32 w-32 rounded'>
+            <img
+              src={booking.venue.media.length > 0 ? booking.venue.media[0] : defaultImage}
+              alt={booking.venue.name}
+              className='rounded-xl'
+            />
+          </figure>
           <div className='card-body flex-grow ml-4'>
             <h2 className='card-title'>
               {booking.venue.name}
@@ -67,11 +62,11 @@ const UpcomingBookings = () => {
                   />
                 </svg>
               </button>
-              <DeleteBookingForm 
-                id={booking.id} 
+              <DeleteBookingForm
+                id={booking.id}
                 name={booking.venue.name}
-                onDeleteSuccess={() => handleDeleteSuccess(booking.id)} 
-                onDeleteError={handleDeleteError} 
+                onDeleteSuccess={() => handleDeleteSuccess(booking.id)}
+                onDeleteError={handleDeleteError}
               />
             </div>
             <hr className='border-t-4' />

@@ -8,7 +8,7 @@ import BookingCalendar from '../../components/BookingCalendar';
 import AlertInfo from '../../components/Alerts/info';
 
 const VenuePage = () => {
-  const defaultImage = '/assets/temporaria.jpeg';
+  const defaultImage = '/assets/holidaze-venue.jpeg';
   const { id } = useParams();
   const {
     data: venue,

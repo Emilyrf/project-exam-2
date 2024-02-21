@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import CurrencyFormatter from '../../utils/CurrencyFormatter';
 
 export default function VenueCard({ venue }) {
-  const defaultImage = '/assets/temporaria.jpeg';
+  const defaultImage = '/assets/holidaze-venue.jpeg';
 
   return (
     <div className='card glass card-compact shadow-xl  relative'>
@@ -23,7 +23,7 @@ export default function VenueCard({ venue }) {
         <CurrencyFormatter amount={venue.price} />
         <div className='card-actions justify-end'>
           <Link to={`/venue/${venue.id}`}>
-            <button className='btn btn-primary'>Check it out!</button>
+            <button className='btn btn-primary text-xl'>Check it out!</button>
           </Link>
         </div>
       </div>

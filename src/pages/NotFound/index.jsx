@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className='hero min-h-screen  bg-base-200'>
       <div className='max-w-5xl mx-auto hero-content flex-col gap-12 lg:flex-row-reverse items-center justify-center'>
-        <img src='/public/assets/temporaria.jpeg' alt='Dog wearing glasses.' />
+        <img src='/assets/holidaze-venue.jpeg' alt='House in the mountains.' />
         <div className='text-center '>
           <h1 className='text-5xl font-bold my-2'>Page not found!</h1>
           <p className='my-2 text-gray-800'>

@@ -9,6 +9,7 @@ import UsersVenues from './components/UsersVenues';
 export default function DashboardPage() {
   const token = useStore((state) => state.token);
   const user = useStore((state) => state.user);
+  const defaultAvatar = '/assets/holidaze-avatar.png';
   const setVenues = useStore((state) => state.setVenues);
   const setBookings = useStore((state) => state.setBookings);
   const navigate = useNavigate();
@@ -46,14 +47,17 @@ export default function DashboardPage() {
     <>
       <div className="hero bg-base-100 shadow-xl">
         <div className="hero-content flex-col lg:flex-row m-4">
-          <img src={user.avatar} alt='User Avatar'
-            className='rounded-full object-cover w-72 h-72' />
+          <img
+            src={user.avatar || defaultAvatar} 
+            alt={user.name}
+            className='rounded-full object-cover w-72 h-72' 
+          />
           <div className="mt-4 text-center">
             <h1 className="lg:text-5xl text-2xl font-bold text-secondary p-4">Welcome, {user ? user.name : 'Guest'}</h1>
             <h2>Email: {user.email}</h2>
             <div className="mt-4 text">
               <button
-                className='btn btn-primary'
+                className='btn btn-primary text-xl'
                 onClick={() => document.getElementById('update_avatar_modal').showModal()}
               >
                 Edit avatar
@@ -71,7 +75,7 @@ export default function DashboardPage() {
           </div>
           <div className="text-center">
             <Link to={`/create`}>
-              <button className="btn btn-accent m-4 ">Create Venue</button>
+              <button className="btn btn-primary text-xl m-4 ">Create Venue</button>
             </Link>
           </div>
         </section>

@@ -3,10 +3,12 @@ import { useStore } from '../../../stores/useStore';
 import DeleteVenueForm from '../forms/DeleteVenueForm';
 import ViewBookingsForm from '../forms/ViewBookingsForm';
 import { Link } from 'react-router-dom';
+import AlertInfo from '../../../components/Alerts/info';
 
 const UsersVenues = () => {
   const [venues, setVenues] = useState(useStore((state) => state.venues));
-  const defaultImage = '/assets/temporaria.jpeg';
+  const defaultImage = '/assets/holidaze-venue.jpeg';
+  
   const handleDeleteSuccess = (deletedVenueId) => {
     setVenues(venues.filter((venue) => venue.id !== deletedVenueId));
   };
@@ -15,7 +17,9 @@ const UsersVenues = () => {
   };
 
   if (venues.length === 0) {
-    return <p>You haven't posted any venues yet.</p>;
+    return( 
+    <AlertInfo message={'You haven`t posted any venues yet'} />
+    )
   }
 
   return (
