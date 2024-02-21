@@ -1,4 +1,4 @@
-import DateFormatter from '../../../utils/DateFormatter';
+import DateFormatter from '../../utils/DateFormatter';
 
 const ViewBookingsForm = ({ venue }) => {
   return (

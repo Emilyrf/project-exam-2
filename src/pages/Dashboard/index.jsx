@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useStore } from '../../stores/useStore';
 import { useNavigate, Link } from 'react-router-dom';
 import { fetchUserVenues, fetchBookings } from '../../services/api/api';
-import UpdateProfileForm from './forms/UpdateAvatarForm';
-import UpcomingBookings from './components/UpcomingBookings';
-import UsersVenues from './components/UsersVenues';
+import UpdateProfileForm from '../../components/Profile/UpdateAvatarForm';
+import UpcomingBookings from '../../components/Bookings/UpcomingBookings';
+import UsersVenues from '../../components/Venues/UsersVenues';
 
 export default function DashboardPage() {
   const token = useStore((state) => state.token);

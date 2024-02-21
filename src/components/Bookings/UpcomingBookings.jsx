@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useStore } from '../../../stores/useStore';
-import DeleteBookingForm from '../forms/DeleteBookingForm';
-import DateFormatter from '../../../utils/DateFormatter';
-import AlertInfo from '../../../components/Alerts/info';
+import { useStore } from '../../stores/useStore';
+import DeleteBookingForm from './DeleteBookingForm';
+import DateFormatter from '../../utils/DateFormatter';
+import AlertInfo from '../Alerts/info';
 
 const UpcomingBookings = () => {
   const [bookings, setBookings] = useState(useStore((state) => state.bookings));

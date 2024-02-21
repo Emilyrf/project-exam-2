@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useStore } from '../../../stores/useStore';
-import DeleteVenueForm from '../forms/DeleteVenueForm';
-import ViewBookingsForm from '../forms/ViewBookingsForm';
+import { useStore } from '../../stores/useStore';
+import DeleteVenueForm from './DeleteVenueForm';
+import ViewBookingsForm from '../Bookings/ViewBookingsForm';
 import { Link } from 'react-router-dom';
-import AlertInfo from '../../../components/Alerts/info';
+import AlertInfo from '../Alerts/info';
 
 const UsersVenues = () => {
   const [venues, setVenues] = useState(useStore((state) => state.venues));

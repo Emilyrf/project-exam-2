@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useStore } from '../../../stores/useStore';
-import { updateProfileMedia } from '../../../services/api/api';
+import { useStore } from '../../stores/useStore';
+import { updateProfileMedia } from '../../services/api/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import AlertError from '../../../components/Alerts/error';
-import AlertSuccess from '../../../components/Alerts/success';
+import AlertError from '../Alerts/error';
+import AlertSuccess from '../Alerts/success';
 
 const validationSchema = yup.object().shape({
   url: yup.string().url('Please enter a valid URL').required('URL is required'),

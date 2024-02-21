@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { deleteBooking } from '../../../services/api/api';
-import { useStore } from '../../../stores/useStore';
-import AlertSuccess from '../../../components/Alerts/success';
-import AlertError from '../../../components/Alerts/error';
+import { deleteBooking } from '../../services/api/api';
+import { useStore } from '../../stores/useStore';
+import AlertSuccess from '../Alerts/success';
+import AlertError from '../Alerts/error';
 
 const DeleteBookingForm = ({ id, name, onDeleteSuccess, onDeleteError }) => {
   const token = useStore((state) => state.token);
