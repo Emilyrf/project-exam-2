@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '../../stores/useStore';
 import { useNavigate, Link } from 'react-router-dom';
 import { fetchUserVenues, fetchBookings } from '../../services/api/api';
 import UserProfile from '../../components/Profile/UserProfile';
 import UpcomingBookings from '../../components/Bookings/UpcomingBookings';
 import UsersVenues from '../../components/Venues/UsersVenues';
+import { Loading } from '../../components/Loading';
 
 export default function DashboardPage() {
   const token = useStore((state) => state.token);
@@ -13,6 +14,7 @@ export default function DashboardPage() {
   const setVenues = useStore((state) => state.setVenues);
   const setBookings = useStore((state) => state.setBookings);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
@@ -24,17 +26,21 @@ export default function DashboardPage() {
       fetchUserVenues(token, user)
         .then((res) => {
           setVenues(res.data);
+          setIsLoading(false); // Set loading to false when data is fetched
         })
         .catch((error) => {
           console.error('Error fetching venues:', error);
+          setIsLoading(false); // Set loading to false on error
         });
     } else {
       fetchBookings(token, user)
         .then((res) => {
           setBookings(res.data);
+          setIsLoading(false); // Set loading to false when data is fetched
         })
         .catch((error) => {
           console.error('Error fetching bookings:', error);
+          setIsLoading(false); // Set loading to false on error
         });
     }
   }, [token, user, setVenues, setBookings, navigate]);
@@ -43,6 +49,9 @@ export default function DashboardPage() {
     return false;
   }
 
+  if (isLoading) {
+    return <Loading />; // Render loading spinner while data is being fetched
+  }
   return (
     <>
       <UserProfile

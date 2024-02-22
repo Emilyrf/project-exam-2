@@ -1,6 +1,5 @@
 import CurrencyFormatter from '../../utils/CurrencyFormatter';
 import BookingCalendar from '../BookingCalendar'; 
-import AlertInfo from '../Alerts/info';
 
 const VenueDetails = ({ venue, defaultImage, token, user }) => {
     const bookedDates = venue.bookings.map((booking) => ({
@@ -79,20 +78,11 @@ const VenueDetails = ({ venue, defaultImage, token, user }) => {
                 <CurrencyFormatter amount={venue.price} /> per night
               </p>
             </div>
-            {token && !user.venueManager && (
-              <div className='md:w-1/2 m-4 flex justify-center text-center'>
-                <div>
-                  <BookingCalendar bookedDates={bookedDates} />
-                </div>
+            <div className='md:w-1/2 m-4 flex justify-center text-center'>
+              <div>
+                <BookingCalendar bookedDates={bookedDates} token={token} user={user} />
               </div>
-            )}
-            {(!token || user.venueManager) && (
-              <div className='md:w-1/2 m-4 flex justify-center text-center'>
-                <div>
-                  <AlertInfo message={'Login as a customer to be able to book a stay in this venue.'} />
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </>
       );

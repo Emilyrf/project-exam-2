@@ -6,9 +6,9 @@ import GuestInput from './GuestsInput';
 import { createBooking } from '../../services/api/api';
 import AlertError from '../Alerts/error';
 import AlertSuccess from '../Alerts/success';
+import AlertInfo from '../Alerts/info';
 
-const BookingCalendar = ({ bookedDates }) => {
-  const token = useStore((state) => state.token);
+const BookingCalendar = ({ bookedDates, token, user }) => {
   const setSelectedDateRange = useStore((state) => state.setSelectedDateRange);
   const selectedDateRange = useStore((state) => state.selectedDateRange);
   const [numGuests, setNumGuests] = useState(1);
@@ -61,24 +61,29 @@ const BookingCalendar = ({ bookedDates }) => {
       setSuccessMessage('');
     }
   };
+
   return (
-    <>
+    <div className="flex flex-col items-center justify-center">
       <h3 className='text-lg font-semibold text-secondary'>Select a Date: </h3>
 
       {errorMessage && <AlertError errorMessage={errorMessage} />}
       {successMessage && <AlertSuccess message={successMessage} />}
-
+      
       <DayPicker onSelect={handleDateSelection} bookedDates={bookedDates} />
 
-      <div className='mt-3'>
-        <GuestInput numGuests={numGuests} setNumGuests={setNumGuests} />
-      </div>
-      <div>
-        <button className='btn btn-primary mt-3' onClick={handleBooking}>
-          Book Now
-        </button>
-      </div>
-    </>
+      {(!token || user.venueManager) ? (
+      
+          <AlertInfo message={'Login as a customer to be able to book a stay in this venue.'} />
+ 
+      ) : (
+        <div>
+            <GuestInput numGuests={numGuests} setNumGuests={setNumGuests} />
+          <button className='btn btn-primary mt-3' onClick={handleBooking}>
+            Book Now
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
