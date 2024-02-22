@@ -53,19 +53,20 @@ gh repo clone Emilyrf/project-exam-2
 
 2. Open in your preferred code editor.
 
-On the terninal: 3. Install the dependencies:
+On the terninal: 
+3. Install the dependencies:
 
 ```bash
 npm i
 ```
 
-3. Build:
+4. Build:
 
 ```bash
 npm run build
 ```
 
-4. Run the app:
+5. Run the app:
 
 ```bash
 npm run dev
