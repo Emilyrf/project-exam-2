@@ -49,15 +49,18 @@ const RegistrationForm = () => {
       setSuccessMessage('You are now registered!');
       setErrorMessage('');
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errorMessage = error.response.data.errors[0].message;
+        setErrorMessage(errorMessage);
+      } else {
+        setErrorMessage(error.message);
+      }
       setSuccessMessage('');
     }
   };
 
   return (
     <div className='card shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
-      {successMessage && <AlertSuccess message={successMessage} />}
-      {errorMessage && <AlertError errorMessage={errorMessage} />}
       <h1 className='text-3xl font-bold text-secondary m-5 text-center'>Register to Holidaze</h1>
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isLoading}>
@@ -97,6 +100,8 @@ const RegistrationForm = () => {
             </label>
           </div>
           <div className='form-control'>
+            {successMessage && <AlertSuccess message={successMessage} />}
+            {errorMessage && <AlertError errorMessage={errorMessage} />}
             <button className='btn btn-primary mt-8' type='submit'>
               {isLoading ? 'Registering in...' : 'Register'}
             </button>

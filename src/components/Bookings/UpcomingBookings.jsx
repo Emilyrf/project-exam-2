@@ -16,12 +16,12 @@ const UpcomingBookings = () => {
     console.error('Error deleting booking:', errorMessage);
   };
 
-  if (bookings.length === 0) {
-    return <AlertInfo message={'You have no upcoming bookings.'} />;
-  }
-
   return (
-    <div>
+    <section className='mx-5'>
+      <h2 className='text-3xl font-bold text-secondary m-5 text-center'>Upcoming bookings:</h2>
+
+      {bookings.length === 0 && <AlertInfo message={'You have no upcoming bookings.'} />}
+
       {bookings.map((booking) => (
         <div key={booking.id} className='card card-side mx-5 flex items-center'>
           <figure className='h-32 w-32 rounded'>
@@ -71,7 +71,7 @@ const UpcomingBookings = () => {
           </div>
         </div>
       ))}
-    </div>
+    </section>
   );
 };
 

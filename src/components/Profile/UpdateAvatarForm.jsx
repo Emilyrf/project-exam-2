@@ -11,7 +11,7 @@ const validationSchema = yup.object().shape({
   url: yup.string().url('Please enter a valid URL').required('URL is required'),
 });
 
-const UpdateProfileForm = () => {
+const UpdateAvatarForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -39,10 +39,10 @@ const UpdateProfileForm = () => {
           venueManager: user.venueManager,
         });
         setErrorMessage('');
-        setSuccessMessage('Avatar atualizado!');
+        setSuccessMessage('Avatar updated!');
       }
     } catch (error) {
-      setErrorMessage(`Error updating profile media: ${error}`);
+      setErrorMessage(`Error updating profile media, Please check the URL.`);
     } finally {
       setIsLoading(false);
     }
@@ -89,4 +89,4 @@ const UpdateProfileForm = () => {
   );
 };
 
-export default UpdateProfileForm;
+export default UpdateAvatarForm;

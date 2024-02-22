@@ -14,8 +14,8 @@ const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   description: yup.string().required('Description is required'),
   media: yup.array().of(yup.string()),
-  price: yup.number().required('Price is required'),
-  maxGuests: yup.number().required('Maximum Guests is required'),
+  price: yup.number().required('Price is required').positive('Price must be a positive number'),
+  maxGuests: yup.number().required('Maximum Guests is required').positive('Maximum Guests must be a positive number'),
   rating: yup.number().default(0),
   meta: yup.object().shape({
     wifi: yup.boolean().default(false),
@@ -54,6 +54,11 @@ export default function VenueForm({ venueId }) {
     control,
     name: 'media',
   });
+
+  const [mediaUrls, setMediaUrls] = useState(['']);
+  const addMediaUrlInput = () => {
+    setMediaUrls([...mediaUrls, '']);
+  };
 
   useEffect(() => {
     if (venueId) {
@@ -106,7 +111,7 @@ export default function VenueForm({ venueId }) {
     <div className='card  shadow-2xl bg-base-100'>
       <form className='card-body' onSubmit={handleSubmit(onSubmit)}>
         <div className='form-control'>
-          <label className='label' htmlFor='name'>
+          <label className='label font-bold text-xl' htmlFor='name'>
             Name:
           </label>
           <input className='input input-bordered' {...register('name')} type='text' />
@@ -114,96 +119,117 @@ export default function VenueForm({ venueId }) {
         </div>
 
         <div className='form-control'>
-          <label className='label' htmlFor='description'>
+          <label className='label font-bold text-xl' htmlFor='description'>
             Description:
           </label>
           <textarea className='input input-bordered' {...register('description')} />
           {errors.description && <span className='text-red-600'>{errors.description.message}</span>}
         </div>
-
         <div className='form-control'>
-          <label className='label' htmlFor='media'>
-            Media (comma-separated URLs):
-          </label>
+          <span className='text-left font-bold text-xl mt-4'> Media:</span>
           {fields.map((media, index) => (
-            <div key={media.id}>
+            <div key={media.id} className="flex items-center mb-4">
+              <label className='label' htmlFor={`media-${index}`}>
+                Media URL {index + 1}:
+              </label>
               <input
-                className='input input-bordered'
+                id={`media-${index}`}
+                className='input input-bordered ml-2'
                 {...register(`media[${index}]`)}
                 type='text'
               />
               {index > 0 && (
-                <button type='button' onClick={() => remove(index)}>
+                <button type='button' className="btn ml-2" onClick={() => remove(index)}>
                   Remove
                 </button>
               )}
             </div>
           ))}
-          <button type='button' onClick={() => append('')}>
-            Add Media
-          </button>
-          {errors.media && <span className='text-red-600'>{errors.media.message}</span>}
+          <div className="flex justify-center">
+            {errors.media && <span className='text-red-600'>{errors.media.message}</span>}
+            <button type='button' className="btn btn-secondary text-lg w-32" onClick={() => append('')}>
+              Add Media
+            </button>
+          </div>
         </div>
 
+
         <div className='form-control'>
-          <label className='label' htmlFor='price'>
+          <label className='label font-bold text-xl' htmlFor='price'>
             Price:
           </label>
-          <input className='input input-bordered' {...register('price')} type='number' />
+          <input className='input input-bordered' {...register('price')} type='number' min="0" />
           {errors.price && <span className='text-red-600'>{errors.price.message}</span>}
         </div>
-
         <div className='form-control'>
-          <label className='label' htmlFor='maxGuests'>
+          <label className='label font-bold text-xl' htmlFor='maxGuests'>
             Maximum Guests:
           </label>
-          <input className='input input-bordered' {...register('maxGuests')} type='number' />
+          <input className='input input-bordered' {...register('maxGuests')} type='number' min="0" />
           {errors.maxGuests && <span className='text-red-600'>{errors.maxGuests.message}</span>}
         </div>
 
         <div className='form-control'>
-          <label className='label'>Facilities:</label>
-          <div>
-            <label htmlFor='wifi'>Wifi:</label>
-            <input type='checkbox' {...register('meta.wifi')} />
-          </div>
-          <div>
-            <label htmlFor='parking'>Parking:</label>
-            <input type='checkbox' {...register('meta.parking')} />
-          </div>
-          <div>
-            <label htmlFor='breakfast'>Breakfast:</label>
-            <input type='checkbox' {...register('meta.breakfast')} />
-          </div>
-          <div>
-            <label htmlFor='pets'>Pets:</label>
-            <input type='checkbox' {...register('meta.pets')} />
+          <label className='label font-bold text-xl'>Facilities:</label>
+          <div className="mt-2">
+            <div className="flex items-start">
+              <div className="mr-4">
+                <label htmlFor='wifi'>Wifi:</label>
+              </div>
+              <div className="mt-1">
+                <input type='checkbox' {...register('meta.wifi')} />
+              </div>
+            </div>
+            <div className="flex items-start">
+              <div className="mr-4">
+                <label htmlFor='parking'>Parking:</label>
+              </div>
+              <div className="mt-1">
+                <input type='checkbox' {...register('meta.parking')} />
+              </div>
+            </div>
+            <div className="flex items-start">
+              <div className="mr-4">
+                <label htmlFor='breakfast'>Breakfast:</label>
+              </div>
+              <div className="mt-1">
+                <input type='checkbox' {...register('meta.breakfast')} />
+              </div>
+            </div>
+            <div className="flex items-start">
+              <div className="mr-4">
+                <label htmlFor='pets'>Pets:</label>
+              </div>
+              <div className="mt-1">
+                <input type='checkbox' {...register('meta.pets')} />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className='form-control'>
-          <label className='label'>Location:</label>
-          <div>
+        <div className='form-control text-left'>
+          <label className='label font-bold text-xl'>Location:</label>
+         
             <label htmlFor='address'>Address:</label>
-            <input className='input input-bordered' {...register('location.address')} type='text' />
+            <input className='input input-bordered mb-2' {...register('location.address')} type='text' />
             {errors.location && errors.location.address && (
               <span className='text-red-600'>{errors.location.address.message}</span>
             )}
-          </div>
-          <div>
+     
+      
             <label htmlFor='city'>City:</label>
             <input className='input input-bordered' {...register('location.city')} type='text' />
             {errors.location && errors.location.city && (
               <span className='text-red-600'>{errors.location.city.message}</span>
             )}
-          </div>
+    
           <div className='form-control'>
             <CountrySelect
               label='Country'
               name='location.country'
               register={register}
               setValue={setValue}
-              // value={location?.country || ''}
+            // value={location?.country || ''}
             />
 
             <ContinentSelect
@@ -217,7 +243,7 @@ export default function VenueForm({ venueId }) {
         </div>
         {successMessage && <AlertSuccess message={successMessage} />}
         {errorMessage && <AlertError errorMessage={errorMessage} />}
-        <button className='btn btn-primary mt-8' type='submit'>
+        <button className='btn btn-primary mt-8 text-lg' type='submit'>
           {venueId ? 'Update Venue' : 'Create Venue'}
         </button>
       </form>

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import VenueForm from '../../components/VenueForm';
+import VenueForm from '../../components/Venues/VenueForm';
 
 export default function EditVenuePage() {
   const { id } = useParams();

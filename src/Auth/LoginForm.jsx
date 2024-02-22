@@ -59,7 +59,6 @@ export default function LoginForm() {
 
   return (
     <div className='card shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
-      {errorMessage && <AlertError errorMessage={errorMessage} />}
       <h1 className='text-3xl font-bold text-secondary m-5 text-center'>
         Login to your Holidaze account:
       </h1>
@@ -79,7 +78,8 @@ export default function LoginForm() {
             <input className='input input-bordered' {...register('password')} type='password' />
             {errors.password && <span className='text-red-600'>{errors.password.message}</span>}
           </div>
-          <div className='form-control'>
+          <div className='form-control mt-2'>
+            {errorMessage && <AlertError errorMessage={errorMessage} />}
             <button className='btn btn-primary mt-8' type='submit'>
               Login
             </button>

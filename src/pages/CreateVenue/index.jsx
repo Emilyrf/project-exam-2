@@ -1,4 +1,4 @@
-import VenueForm from '../../components/VenueForm';
+import VenueForm from "../../components/Venues/VenueForm";
 
 export default function CreateVenuePage() {
   return (
