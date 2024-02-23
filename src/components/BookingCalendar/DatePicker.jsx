@@ -5,33 +5,27 @@ import 'react-day-picker/dist/style.css';
 
 const css = `
   .my-selected:not([disabled]) { 
-    font-weight: bold; 
-    border: 2px solid currentColor;
-  }
-  .my-selected:hover:not([disabled]) { 
-    border-color: blue;
-    color: blue;
+    font-weight: bold;
+    background-color: green; 
   }
   .my-today { 
     font-weight: bold;
     font-size: 140%; 
-    color: red;
   }
 `;
 
 const CustomDatePicker = ({ bookedDates }) => {
   const setSelectedDateRange = useStore((state) => state.setSelectedDateRange);
   const [range, setRange] = useState();
-  const pastMonth = new Date();
+  const defaultMonth = new Date();
 
-  let disabledDays = [];
-  if (bookedDates) {
-    disabledDays = bookedDates.map((booking) => ({
+  const disabledDays = [
+    { before: new Date() }, // Disable past dates
+    ...(bookedDates || []).map((booking) => ({
       from: new Date(booking.start),
       to: new Date(booking.end),
-    }));
-  }
-
+    })),
+  ];
   let footer = <p>Please pick the first day.</p>;
   if (range?.from) {
     if (!range.to) {
@@ -55,7 +49,8 @@ const CustomDatePicker = ({ bookedDates }) => {
       <style>{css}</style>
       <DayPicker
         mode='range'
-        defaultMonth={pastMonth}
+        defaultMonth={defaultMonth}
+        fromMonth={defaultMonth}
         selected={range}
         footer={footer}
         onSelect={handleDateChange}

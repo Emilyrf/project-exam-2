@@ -36,7 +36,7 @@ const BookingCalendar = ({ bookedDates, token, user }) => {
 
       const currentDate = new Date();
       if (startDate < currentDate || endDate < currentDate) {
-        setErrorMessage('Please select future dates for booking.');
+        setErrorMessage('Please select between the avaiable dates.');
         return;
       }
 
