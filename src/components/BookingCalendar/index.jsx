@@ -71,7 +71,7 @@ const BookingCalendar = ({ bookedDates, token, user }) => {
       
       <DayPicker onSelect={handleDateSelection} bookedDates={bookedDates} />
 
-      {(!token || user.venueManager) ? (
+      {(!token) ? (
       
           <AlertInfo message={'Login as a customer to be able to book a stay in this venue.'} />
  

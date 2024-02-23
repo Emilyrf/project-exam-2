@@ -16,13 +16,14 @@ const UsersVenues = () => {
     console.error('Error deleting venue:', errorMessage);
   };
 
-  if (venues.length === 0) {
-    return <AlertInfo message={'You haven`t posted any venues yet'} />;
-  }
-
   return (
     <section className='mx-5'>
       <h2 className='text-3xl font-bold text-secondary m-5 text-center'>Your venues:</h2>
+      {venues.length === 0 && (
+          <div className="m-4">
+            <AlertInfo message={'You haven`t posted any venues yet'} />
+          </div>
+        )}
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8'>
         {venues.map((venue) => (
           <div key={venue.id} className='card bg-base-100 shadow-xl card-compact relative'>
@@ -98,7 +99,7 @@ const UsersVenues = () => {
       </div>
       <div className='text-center'>
         <Link to={`/create`}>
-          <button className='btn btn-primary text-xl m-4 '>Create Venue</button>
+          <button className='btn btn-primary text-xl '>Create Venue</button>
         </Link>
       </div>
     </section>

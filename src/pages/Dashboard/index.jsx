@@ -21,36 +21,41 @@ export default function DashboardPage() {
       navigate('/login');
       return;
     }
-
+  
+    // If the user is a venue manager, fetch both venues and bookings
     if (user && user.venueManager) {
-      fetchUserVenues(token, user)
-        .then((res) => {
-          setVenues(res.data);
-          setIsLoading(false); // Set loading to false when data is fetched
-        })
-        .catch((error) => {
-          console.error('Error fetching venues:', error);
-          setIsLoading(false); // Set loading to false on error
-        });
-    } else {
+      Promise.all([
+        fetchUserVenues(token, user),
+        fetchBookings(token, user)
+      ])
+      .then(([venuesRes, bookingsRes]) => {
+        setVenues(venuesRes.data);
+        setBookings(bookingsRes.data);
+        setIsLoading(false); // Set loading to false when data is fetched
+      })
+      .catch(error => {
+        console.error('Error fetching venues and bookings:', error);
+        setIsLoading(false); // Set loading to false on error
+      });
+    } else { // If the user is not a venue manager, fetch only bookings
       fetchBookings(token, user)
-        .then((res) => {
-          setBookings(res.data);
+        .then(bookingsRes => {
+          setBookings(bookingsRes.data);
           setIsLoading(false); // Set loading to false when data is fetched
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('Error fetching bookings:', error);
           setIsLoading(false); // Set loading to false on error
         });
     }
   }, [token, user, setVenues, setBookings, navigate]);
-
+  
   if (!token) {
     return false;
   }
 
   if (isLoading) {
-    return <Loading />; // Render loading spinner while data is being fetched
+    return <Loading />;
   }
   return (
     <>
@@ -59,10 +64,15 @@ export default function DashboardPage() {
         defaultAvatar={defaultAvatar}
         onEditAvatarClick={() => document.getElementById('update_avatar_modal').showModal()}
       />
-      {user && user.venueManager ? (
-        <UsersVenues />
+      {!user.venueManager ? (
+     
+       <UpcomingBookings />
+      
       ) : (
+        <>
+        <UsersVenues />
         <UpcomingBookings />
+        </>
       )}
     </>
   );

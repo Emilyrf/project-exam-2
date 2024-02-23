@@ -20,7 +20,11 @@ const UpcomingBookings = () => {
     <section className='mx-5'>
       <h2 className='text-3xl font-bold text-secondary m-5 text-center'>Upcoming bookings:</h2>
 
-      {bookings.length === 0 && <AlertInfo message={'You have no upcoming bookings.'} />}
+      {bookings.length === 0 && (
+        <div className="m-4"> 
+          <AlertInfo message={'You have no upcoming bookings.'} /> 
+        </div>
+      )}
 
       {bookings.map((booking) => (
         <div key={booking.id} className='card card-side mx-5 flex items-center'>

@@ -1,4 +1,3 @@
-import React from 'react';
 import UpdateAvatarForm from './UpdateAvatarForm'
 
 function UserProfile({ user, defaultAvatar, onEditAvatarClick }) {
