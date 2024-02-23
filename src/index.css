@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .active {
-  @apply border-b-2 border-[#888888] no-underline font-bold text-[#888888];
+  @apply font-bold text-primary;
 }

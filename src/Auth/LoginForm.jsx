@@ -80,7 +80,7 @@ export default function LoginForm() {
           </div>
           <div className='form-control mt-2'>
             {errorMessage && <AlertError errorMessage={errorMessage} />}
-            <button className='btn btn-primary mt-8' type='submit'>
+            <button className='btn btn-primary text-xl mt-8' type='submit'>
               Login
             </button>
           </div>

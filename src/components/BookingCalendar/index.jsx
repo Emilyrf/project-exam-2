@@ -78,7 +78,7 @@ const BookingCalendar = ({ bookedDates, token, user }) => {
       ) : (
         <div>
             <GuestInput numGuests={numGuests} setNumGuests={setNumGuests} />
-          <button className='btn btn-primary mt-3' onClick={handleBooking}>
+          <button className='btn text-xl btn-primary mt-3' onClick={handleBooking}>
             Book Now
           </button>
         </div>

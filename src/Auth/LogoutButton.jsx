@@ -11,7 +11,7 @@ function LogoutButton() {
   }
 
   return (
-    <button className='btn btn-secondary text-xl' onClick={handleLogout}>
+    <button className='btn text-xl' onClick={handleLogout}>
       Logout
     </button>
   );

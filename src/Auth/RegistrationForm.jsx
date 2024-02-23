@@ -50,7 +50,7 @@ const RegistrationForm = () => {
       const response = await registerUser({ ...data, venueManager: isVenueManager });
       setSuccessMessage(
         <>
-         You are now registered! Proceed to <Link className="link" to="/login">login</Link>.
+         You are now registered! Proceed to <Link className="link text-xl" to="/login">login</Link>.
         </>
       );
       setErrorMessage('');
@@ -109,7 +109,7 @@ const RegistrationForm = () => {
           <div className='form-control'>
             {successMessage && <AlertSuccess message={successMessage} />}
             {errorMessage && <AlertError errorMessage={errorMessage} />}
-            <button className='btn btn-primary mt-8' type='submit'>
+            <button className='btn text-xl btn-primary mt-8' type='submit'>
               {isLoading ? 'Registering in...' : 'Register'}
             </button>
           </div>
