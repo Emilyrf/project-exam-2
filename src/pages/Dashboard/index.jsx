@@ -31,21 +31,21 @@ export default function DashboardPage() {
       .then(([venuesRes, bookingsRes]) => {
         setVenues(venuesRes.data);
         setBookings(bookingsRes.data);
-        setIsLoading(false); // Set loading to false when data is fetched
+        setIsLoading(false); 
       })
       .catch(error => {
         console.error('Error fetching venues and bookings:', error);
-        setIsLoading(false); // Set loading to false on error
+        setIsLoading(false); 
       });
-    } else { // If the user is not a venue manager, fetch only bookings
+    } else { 
       fetchBookings(token, user)
         .then(bookingsRes => {
           setBookings(bookingsRes.data);
-          setIsLoading(false); // Set loading to false when data is fetched
+          setIsLoading(false); 
         })
         .catch(error => {
           console.error('Error fetching bookings:', error);
-          setIsLoading(false); // Set loading to false on error
+          setIsLoading(false); 
         });
     }
   }, [token, user, setVenues, setBookings, navigate]);
