@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { registerUser } from '../services/api/api';
+import { Link } from 'react-router-dom';
 import AlertSuccess from '../components/Alerts/success';
 import AlertError from '../components/Alerts/error';
 
@@ -37,6 +38,7 @@ const RegistrationForm = () => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -46,8 +48,13 @@ const RegistrationForm = () => {
     try {
       data.isVenueManager = isVenueManager;
       const response = await registerUser({ ...data, venueManager: isVenueManager });
-      setSuccessMessage('You are now registered!');
+      setSuccessMessage(
+        <>
+         You are now registered! Proceed to <Link className="link" to="/login">login</Link>.
+        </>
+      );
       setErrorMessage('');
+      reset();
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const errorMessage = error.response.data.errors[0].message;
